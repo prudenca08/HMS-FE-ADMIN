@@ -1,14 +1,17 @@
 import NavbarTop from "./components/NavbarTop/NavbarTop";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Dashboard from "./pages/dashboard/Dashboard";
 import "./app.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
     <div>
       <NavbarTop />
-      <div className="container">
+      <div className="containers">
         <Sidebar />
-        <div className="others">other Pages</div>
+        <Dashboard />
       </div>
     </div>
   );

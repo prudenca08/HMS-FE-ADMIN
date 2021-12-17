@@ -1,6 +1,5 @@
-.container{
+.containers{
     display: flex ;
+    
 }
-.others{
-    flex: 4;
-}
+
