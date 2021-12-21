@@ -1,7 +1,7 @@
 import NavbarTop from "./components/NavbarTop/NavbarTop";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/dashboard/Dashboard";
-import "./app.css";
+import Dashboard from "./pages/dashboard/dashboard";
+import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
