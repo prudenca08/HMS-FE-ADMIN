@@ -1,19 +1,35 @@
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarTop from "./components/NavbarTop/NavbarTop";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/dashboard/dashboard";
-import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Dashboard from "./pages/dashboard/Dashboard";
+import PatientsList from "./pages/patientsList/PatientsList";
+import Patient from "./pages/patient/Patient";
+import NewPatient from "./pages/newPatient/NewPatient";
 
 function App() {
   return (
-    <div>
+    <Router>
       <NavbarTop />
       <div className="containers">
         <Sidebar />
-        <Dashboard />
+        <Switch>
+          <Route exact path ="/">
+            <Dashboard />
+          </Route>
+          <Route path ="/patients">
+            <PatientsList />
+          </Route>
+          <Route path ="/patient/:patientId">
+            <Patient />
+          </Route>
+          <Route path ="/newPatient">
+            <NewPatient />
+          </Route>
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 
