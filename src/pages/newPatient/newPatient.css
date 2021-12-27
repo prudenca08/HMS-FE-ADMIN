@@ -26,9 +26,7 @@
     border: 1px solid gray;
     border-radius: 5px;
 }
-.newPatientGender > input{
-    
-}
+
 .newPatientGender > label {
     margin-right: 10px;
     font-size: 18px;
