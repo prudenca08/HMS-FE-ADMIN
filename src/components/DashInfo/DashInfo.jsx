@@ -11,15 +11,9 @@ export default function DashInfo() {
         </div>
       </div>
       <div className="dashItem doctor">
-        <span className="dashTitle">Total Doctor</span>
+        <span className="dashTitle">Total Doctor/Nurse</span>
         <div className="dashCount">
           <span className="count">2</span>
-        </div>
-      </div>
-      <div className="dashItem nurse">
-        <span className="dashTitle">Total Nurse</span>
-        <div className="dashCount">
-          <span className="count">0</span>
         </div>
       </div>
     </div>
