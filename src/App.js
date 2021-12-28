@@ -7,6 +7,9 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import PatientsList from "./pages/patientsList/PatientsList";
 import Patient from "./pages/patient/Patient";
 import NewPatient from "./pages/newPatient/NewPatient";
+import DoctorsList from "./pages/doctorList/DoctorsList";
+import Doctor from "./pages/doctor/Doctor";
+import NewDoctor from "./pages/newDoctor/NewDoctor";
 
 function App() {
   return (
@@ -15,17 +18,26 @@ function App() {
       <div className="containers">
         <Sidebar />
         <Switch>
-          <Route exact path ="/">
+          <Route exact path="/">
             <Dashboard />
           </Route>
-          <Route path ="/patients">
+          <Route path="/patients">
             <PatientsList />
           </Route>
-          <Route path ="/patient/:patientId">
+          <Route path="/patient/:patientId">
             <Patient />
           </Route>
-          <Route path ="/newPatient">
+          <Route path="/newPatient">
             <NewPatient />
+          </Route>
+          <Route path="/doctors">
+            <DoctorsList />
+          </Route>
+          <Route path="/doctor/:doctorId">
+            <Doctor />
+          </Route>
+          <Route path="/newDoctor">
+            <NewDoctor />
           </Route>
         </Switch>
       </div>

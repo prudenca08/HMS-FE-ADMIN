@@ -1,0 +1,17 @@
+.doctorsList {
+  flex: 4;
+}
+.doctorsEdit {
+  cursor: pointer;
+  margin-right: 20px;
+  color: rgb(42, 124, 218);
+}
+.doctorsDelete {
+  cursor: pointer;
+  color: crimson;
+}
+.doctorListTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,43 @@
+.newDoctor {
+  flex: 4;
+  margin-left: 20px;
+}
+.newDoctorForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+.newDoctorItem {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+.newDoctorItem > label {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: gray;
+}
+.newDoctorItem > label > input {
+  height: 20px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.newDoctorGender > label {
+  margin-right: 10px;
+  font-size: 18px;
+}
+.newDoctorButton {
+  margin-top: 60px;
+  border-radius: 10px;
+  border: none;
+  width: 100px;
+  padding: 7px 10px;
+  cursor: pointer;
+  background-color: #8282f3;
+  color: white;
+  font-weight: 400;
+}

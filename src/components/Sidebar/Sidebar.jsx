@@ -25,10 +25,12 @@ const Sidebar = () => {
               Patients
             </li>
             </Link>
+            <Link to= "/doctors" className="link" >
             <li className="sidebarListItem">
               <img src={DoctorIcon} className="sidebarIcon" alt="" />
               Doctors
             </li>
+            </Link>
             <li className="sidebarListItem">
               <img src={ManageIcon} className="sidebarIcon" alt="" />
               Manage
