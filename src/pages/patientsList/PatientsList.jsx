@@ -72,6 +72,11 @@ export default function PatientsList() {
       <div className="patientListTitleContainer">
         <h3 className="patientListTitle">Patients</h3>
       </div>
+      <div className="patientAdd">
+        <Link to="/newPatient">
+          <button className="patientAddButton">+Add New</button>
+        </Link>
+      </div>
       <DataGrid
         rows={data}
         columns={columns}

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./newPatient.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-export default function newPatient() {
+export default function NewPatient() {
+  const [selectedDate, setSelectedDate] = useState(null);
+
   return (
     <div className="newPatient">
       <h1 className="newPatientTitle">New Patients</h1>
@@ -16,7 +20,16 @@ export default function newPatient() {
         </div>
         <div className="newPatientItem">
           <label>Date of Birth</label>
-          <input type="text" placeholder="dd/mm/yy" />
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat='dd/MM/yyyy'
+            filterDate={date => date.getDay() !== 6 && date.getDay() !== 0 }
+            isClearable
+            showYearDropdown
+            scrollableMonthYearDropdown
+          >
+          </DatePicker>
         </div>
         <div className="newPatientItem">
           <label>Gender</label>
