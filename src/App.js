@@ -16,15 +16,13 @@ function App() {
     <Router>
       <NavbarTop />
       <div className="containers">
-        <Sidebar onCollapse={(inactive)=>{
-          console.log(inactive)
-        }} />
+        <Sidebar
+          onCollapse={(inactive) => {
+            console.log(inactive);
+          }}
+        />
         <Switch>
-<<<<<<< Updated upstream
           <Route exact path="/">
-=======
-          <Route exact path ={"/"}>
->>>>>>> Stashed changes
             <Dashboard />
           </Route>
           <Route path="/patients">

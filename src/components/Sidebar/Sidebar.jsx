@@ -80,9 +80,6 @@ const Sidebar = (props) => {
             <li className="sidebarListItem">
               <img src={ManageIcon} className="sidebarIcon" alt="" />
               Manage
-=======
-              <span>Patients</span>
->>>>>>> Stashed changes
             </li>
           </Link>
           <li className="sidebarListItem">

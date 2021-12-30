@@ -6,6 +6,11 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import WcIcon from "@material-ui/icons/Wc";
 import PhoneIcon from "@material-ui/icons/Phone";
 import HomeIcon from "@material-ui/icons/Home";
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import FaceIcon from '@material-ui/icons/Face';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import GradeIcon from '@material-ui/icons/Grade';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import { Link } from "react-router-dom";
 
@@ -31,27 +36,27 @@ export default function Doctor() {
               <span className="doctorShowInfoTitle">12125634256</span>
             </div>
             <div className="doctorShowInfo">
-              <CalendarTodayIcon className="doctorShowIcon" />
+              <PhoneIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">088888</span>
             </div>
             <div className="doctorShowInfo">
-              <WcIcon className="doctorShowIcon" />
+              <NoteAddIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">Tenaga Dalam</span>
             </div>
             <div className="doctorShowInfo">
-              <PhoneIcon className="doctorShowIcon" />
+              <MeetingRoomIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">H2</span>
             </div>
             <div className="doctorShowInfo">
-              <PhoneIcon className="doctorShowIcon" />
+              <FaceIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">abc123</span>
             </div>
             <div className="doctorShowInfo">
-              <PhoneIcon className="doctorShowIcon" />
+              <VpnKeyIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">abc123</span>
             </div>
             <div className="doctorShowInfo">
-              <LocalHospitalIcon className="doctorShowIcon" />
+              <GradeIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">
               S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan
               </span>

@@ -16,7 +16,7 @@ export default function DoctorsList() {
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "doctor_name", headerName: "Name", width: 130 },
-    { field: "nip", headerName: "NIp", width: 130 },
+    { field: "nip", headerName: "NIP", width: 130 },
     {
       field: "phone",
       headerName: "Phone",
@@ -75,7 +75,12 @@ export default function DoctorsList() {
   return (
     <div className="doctorsList">
       <div className="doctorListTitleContainer">
-        <h3 className="doctorListTitle">doctors</h3>
+        <h3 className="doctorListTitle">Doctors</h3>
+      </div>
+      <div className="doctorAdd">
+        <Link to="/newDoctor">
+          <button className="doctorAddButton">+Add New</button>
+        </Link>
       </div>
       <DataGrid
         rows={data}
