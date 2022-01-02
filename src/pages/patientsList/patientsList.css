@@ -25,9 +25,11 @@
     background-color: #8282F3;
     color: white;
     font-weight: 400;
+    
 }
 .patientAdd{
     display: flex;
     padding: 20px 5px;
     right: 0;
+    margin-left: 62em;
 }
