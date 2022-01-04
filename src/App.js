@@ -10,6 +10,12 @@ import NewPatient from "./pages/newPatient/NewPatient";
 import DoctorsList from "./pages/doctorList/DoctorsList";
 import Doctor from "./pages/doctor/Doctor";
 import NewDoctor from "./pages/newDoctor/NewDoctor";
+import ManageDrSchedule from "./pages/manageDrSchedule/ManageDrSchedule";
+import ManagePatientSchedule from "./pages/managePatientSchedule/ManagePatientSchedule";
+import ManageOutpatient from "./pages/manageOutpatient/ManageOutpatient";
+import NewOutpatient from "./pages/newOutpatient/NewOutpatient";
+import Outpatient from "./pages/outpatient/Outpatient";
+import Form from "./pages/login/Form";
 
 function App() {
   return (
@@ -42,6 +48,21 @@ function App() {
           </Route>
           <Route path="/newDoctor">
             <NewDoctor />
+          </Route>
+          <Route path ="/manage/drschedule">
+            <ManageDrSchedule />
+          </Route>
+          <Route path ="/manage/patientschedule">
+            <ManagePatientSchedule />
+          </Route>
+          <Route path ="/manage/outpatient">
+            <ManageOutpatient />
+          </Route>
+          <Route path="/outpatient/:outpatientId">
+            <Outpatient/>
+          </Route>
+          <Route path="/newOutpatient">
+            <NewOutpatient />
           </Route>
         </Switch>
       </div>

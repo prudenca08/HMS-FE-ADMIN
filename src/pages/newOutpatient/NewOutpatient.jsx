@@ -8,7 +8,9 @@ export default function NewOutpatient() {
 
   return (
     <div className="newOutpatient">
+
       <h2 className="newOutpatientTitle">New Outpatient</h2>
+
       <form className="newOutpatientForm">
         <div className="newOutpatientItem">
           <label> Patient Name</label>

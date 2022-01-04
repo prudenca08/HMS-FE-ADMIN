@@ -66,7 +66,6 @@ export default function PatientsList() {
       },
     },
   ];
-
   return (
     <div className="patientsList">
       <div className="patientListTitleContainer">
