@@ -47,7 +47,7 @@ export default function ManageOutpatient() {
   return (
     <div className="outpatientList">
       <div className="outpatientListTitleContainer">
-        <h3 className="outpatientListTitle">Outpatient Session</h3>
+        <h3 className="ListTitle">Outpatient Session</h3>
       </div>
       <div className="outpatientAdd">
       <Link to="/newOutpatient">

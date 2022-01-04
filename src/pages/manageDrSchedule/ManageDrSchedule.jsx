@@ -49,7 +49,7 @@ export default function ManageDrSchedule() {
   return (
     <div className="drscheduleList">
       <div className="doctorscheduleListTitleContainer">
-        <h3 className="doctorscheduleListTitle">Doctor Schedule</h3>
+        <h3 className="ListTitle">Doctor Schedule</h3>
       </div>
       <div className="doctorscheduleAdd">
         <button

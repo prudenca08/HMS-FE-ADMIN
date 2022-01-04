@@ -50,7 +50,7 @@ export default function ManagePatientSchedule() {
   return (
     <div className="drscheduleList">
       <div className="doctorscheduleListTitleContainer">
-        <h3 className="doctorscheduleListTitle">Patient Schedule</h3>
+        <h3 className="ListTitle">Patient Schedule</h3>
       </div>
       <div className="doctorscheduleAdd">
         <button
