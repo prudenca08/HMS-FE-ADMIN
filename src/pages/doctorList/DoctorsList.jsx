@@ -75,7 +75,7 @@ export default function DoctorsList() {
   return (
     <div className="doctorsList">
       <div className="doctorListTitleContainer">
-        <h3 className="doctorListTitle">Doctors</h3>
+        <h3 className="ListTitle">Doctors</h3>
       </div>
       <div className="doctorAdd">
         <Link to="/newDoctor">
