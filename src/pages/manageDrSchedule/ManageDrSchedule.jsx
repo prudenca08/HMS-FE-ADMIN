@@ -1,45 +1,25 @@
 import React, { useState } from "react";
 import "./manageDrSchedule.css";
 import { DataGrid } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import { drscheduleRows } from "../../dummyData";
 import NewDrSchedule from "../newDrSchedule/NewDrSchedule";
-import EditDrSchedule from "../editDrSchedule/EditDrSchedule";
-import { useEffect } from "react";
 
 export default function ManageDrSchedule() {
   const [data, setData] = useState(drscheduleRows);
-  const [modall, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [editID, setEditID] = useState();
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
-  const handleOnClickAdd = (event) => {
+
+  const handleOnclickEdit = (event, id) => {
+    console.log("id =>" + id);
     setModal(true);
-    let target = document.getElementById("manage-modal");
-    if (target.classList.contains("hide")) {
-      target.classList.remove("hide");
-    } else {
-      target.classList.add("hide");
-    }
-    console.log(target);
+    setEditID(id);
   };
-  const handleWindowOnClick = (event) => {
-    let modal = document.getElementById("manage-modal");
-    if (modal !== null) {
-      if (
-        !event.path.includes(modal) &&
-        !event.path.includes(document.getElementById("add-btn"))
-      ) {
-        modal.classList.add("hide");
-      }
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("click", handleWindowOnClick, false);
-  });
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
@@ -54,13 +34,8 @@ export default function ManageDrSchedule() {
           <>
             <EditIcon
               className="drscheduleEdit"
-              onClick={() => handleOnClickAdd(params.row.id)}
-              id="add-btn"
+              onClick={(event) => handleOnclickEdit(event, params.row.id)}
             />
-            {/* <div className="manage-modal hide shadow" id="manage-modal">
-              <EditDrSchedule />
-            </div> */}
-
             <DeleteOutlineIcon
               className="drscheduleDelete"
               onClick={() => handleDelete(params.row.id)}
@@ -79,20 +54,20 @@ export default function ManageDrSchedule() {
       <div className="doctorscheduleAdd">
         <button
           className="doctorscheduleAddButton"
-          onClick={handleOnClickAdd}
-          id="add-btn"
+          onClick={() => setModal(true)}
         >
           +Add New
         </button>
       </div>
-      {modall ? (
-        <div className="manage-modal  shadow" id="manage-modal">
-          <NewDrSchedule />
+      {modal ? (
+        <div className="manage-modal shadow" id="manage-modal">
+          <NewDrSchedule
+            modalClose={setModal}
+            deleteID={setEditID}
+            idModal={editID}
+          />
         </div>
       ) : null}
-      <div className="manage-modal hide shadow" id="manage-modal">
-        <EditDrSchedule />
-      </div>
 
       <DataGrid
         rows={data}

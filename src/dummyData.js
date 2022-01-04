@@ -136,6 +136,16 @@ export const patientscheduleRows=[
     day : "Tuesday",
     time : "10.00 - 10.50"
   },
+  {
+    id : 4,
+    day : "Tuesday",
+    time : "11.00 - 11.50"
+  },
+  {
+    id : 5,
+    day : " Wednesday",
+    time : "10.00 - 10.50"
+  },
 ];
 export const outpatient = [
   {
