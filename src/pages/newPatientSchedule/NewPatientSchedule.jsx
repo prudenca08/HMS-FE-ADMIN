@@ -20,7 +20,7 @@ const NewPatientSchedule = (props) => {
     <div className="manage-form">
       <form>
         <div className="manage-form-header">
-          <button onClick={handleClose}>Close</button>
+          <span className="closeBtn" onClick={handleClose}>X</span>
           {
             props.idModal ?<h3>Edit Patient Schedule</h3> : <h3>Add Patient Schedule</h3> 
           }        
