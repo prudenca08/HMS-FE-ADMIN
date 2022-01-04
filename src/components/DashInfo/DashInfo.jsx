@@ -11,7 +11,7 @@ export default function DashInfo() {
         </div>
       </div>
       <div className="dashItem">
-        <span className="dashTitle">Total Doctor/Nurse</span>
+        <span className="dashTitle">Total Doctor & Nurse</span>
         <div className="dashCount">
           <span className="count">2</span>
         </div>

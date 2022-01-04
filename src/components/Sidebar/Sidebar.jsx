@@ -5,19 +5,19 @@ import { useState } from "react";
 import MenuItem from "./MenuItem";
 
 const menuItems = [
-  { name: "Dashboard", to: "/", icon : "/assets/img/icon/HomeIcon.png"},
+  { name: "Dashboard",to: "/", exact: true, icon : "/assets/img/icon/HomeIcon.png"},
   { name: "Patients", to: `/patients`, icon : "/assets/img/icon/patientIcon.png" },
   { name: "Doctors", to: `/doctors`, icon : "/assets/img/icon/doctorIcon.png" },
   {
     name: "Manage",
-    to: `/manage`,
+    to: `#`,
     icon : "/assets/img/icon/manageIcon.png",
     iconOpened : "/assets/img/icon/dropdown.png",
     subMenus: [
-      { name: "Doctor Schedule", to :'/manage/drschedule' },
-      { name: "Patient Schedule", to :'/manage/patientschedule' },
-      { name: "Outpatient Session", to :'/manage/outpatient' },
-    ],
+      { name: "Doctor Schedule", to :`/manage/drschedule` },
+      { name: "Patient Schedule", to :`/manage/patientschedule` },
+      { name: "Outpatient Session", to :`/manage/outpatient`}
+    ]
   },
   { name: "Recipe", to : `/recipe`, icon: "/assets/img/icon/recipeIcon.png"}
 ];
@@ -48,6 +48,7 @@ const Sidebar = (props) => {
               key={index}
               name={menuItem.name}
               to ={menuItem.to}
+              exact = {menuItem.exact}
               subMenus={menuItem.subMenus || []}
               icon={menuItem.icon}
               iconOpened={menuItem.iconOpened}
@@ -58,46 +59,6 @@ const Sidebar = (props) => {
               }}
               />
             ))}
-          {/* <Link to="/" className="link">
-            <li className="sidebarListItem ">
-              <HomeIcon className="sidebarIcon" />
-              <span>Dashboard</span>
-            </li>
-          </Link>
-          <Link to="/patients" className="link">
-            <li className="sidebarListItem">
-              <img src={PatientIcon} className="sidebarIcon" alt="" />
-<<<<<<< Updated upstream
-              Patients
-            </li>
-            </Link>
-            <Link to= "/doctors" className="link" >
-            <li className="sidebarListItem">
-              <img src={DoctorIcon} className="sidebarIcon" alt="" />
-              Doctors
-            </li>
-            </Link>
-            <li className="sidebarListItem">
-              <img src={ManageIcon} className="sidebarIcon" alt="" />
-              Manage
-            </li>
-          </Link>
-          <li className="sidebarListItem">
-            <img src={DoctorIcon} className="sidebarIcon" alt="" />
-            <span>Doctors</span>
-          </li>
-          <MenuItem
-            name={"Manage"}
-            subMenus={[
-              { name: "Doctor Schedule" },
-              { name: "Patient Schedule" },
-              { name: "Outpatient Session" },
-            ]}
-          />
-          <li className="sidebarListItem">
-            <img src={RecipeIcon} className="sidebarIcon" alt="" />
-            <span>Recipes</span>
-          </li> */}
         </ul>
       </div>
     </div>

@@ -9,7 +9,7 @@ export default function MenuItem(props) {
 
   return (
     <li onClick={props.onClick}>
-      <NavLink to={to} onClick={()=>  setExpand(!expand)} className="sidebarListItem">
+      <NavLink exact to={to} onClick={()=>  setExpand(!expand)} className="sidebarListItem">
         <img src={icon} className="sidebarIcon" alt="" />
         <span>{name}</span>
         <img src={iconOpened} className="dropdownIcon" alt=""/>
@@ -18,7 +18,7 @@ export default function MenuItem(props) {
         <ul className={`subList ${expand ? "active" : ""}`}>
             {subMenus.map((menu, index) => (
                 <li key={index}>
-                    <NavLink to={to} >{menu.name}</NavLink>
+                    <NavLink to={menu.to} >{menu.name}</NavLink>
                 </li>
             ))}
         </ul>

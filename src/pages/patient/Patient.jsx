@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./patient.css";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
@@ -92,17 +92,14 @@ export default function Patient() {
                   isClearable
                   showYearDropdown
                   scrollableMonthYearDropdown
-                >
-                  
-                </DatePicker>
+                ></DatePicker>
               </div>
               <div className="patientUpdateItem">
                 <label>Gender</label>
-                <input
-                  type="text"
-                  placeholder="Perempuan"
-                  className="patientUpdateInput"
-                />
+                <select name="gender" id="gender">
+                  <option value="pria">Pria</option>
+                  <option value="perempuan">Perempuan</option>
+                </select>
               </div>
               <div className="patientUpdateItem">
                 <label>Phone</label>
