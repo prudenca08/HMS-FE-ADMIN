@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./patient.css";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
@@ -8,8 +8,11 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import HomeIcon from "@material-ui/icons/Home";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Patient() {
+  const [selectedDate, setSelectedDate] = useState(null);
   return (
     <div className="patient">
       <div className="patientTitleContainer">
@@ -79,19 +82,24 @@ export default function Patient() {
               </div>
               <div className="patientUpdateItem">
                 <label>Date of Birth</label>
-                <input
-                  type="text"
-                  placeholder="12 January 2000"
-                  className="patientUpdateInput"
-                />
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  dateFormat="dd/MM/yyyy"
+                  filterDate={(date) =>
+                    date.getDay() !== 6 && date.getDay() !== 0
+                  }
+                  isClearable
+                  showYearDropdown
+                  scrollableMonthYearDropdown
+                ></DatePicker>
               </div>
               <div className="patientUpdateItem">
                 <label>Gender</label>
-                <input
-                  type="text"
-                  placeholder="Perempuan"
-                  className="patientUpdateInput"
-                />
+                <select name="gender" id="gender">
+                  <option value="pria">Pria</option>
+                  <option value="perempuan">Perempuan</option>
+                </select>
               </div>
               <div className="patientUpdateItem">
                 <label>Phone</label>

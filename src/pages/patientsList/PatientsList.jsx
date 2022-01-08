@@ -67,11 +67,15 @@ export default function PatientsList() {
       },
     },
   ];
-
   return (
     <div className="patientsList">
       <div className="patientListTitleContainer">
-        <h3 className="patientListTitle">Patients</h3>
+        <h3 className="ListTitle">Patients</h3>
+      </div>
+      <div className="patientAdd">
+        <Link to="/newPatient">
+          <button className="patientAddButton">+Add New</button>
+        </Link>
       </div>
       <DataGrid
         rows={data}

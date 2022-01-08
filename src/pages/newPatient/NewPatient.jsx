@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./newPatient.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+export default function NewPatient() {
+  const [selectedDate, setSelectedDate] = useState(null);
+
 
 
 export default function newPatient() {
@@ -19,6 +25,7 @@ export default function newPatient() {
     tmp[event.currentTarget.name] = event.currentTarget.value;
     setField(tmp);
   };
+
 
   return (
     <div className="newPatient">
@@ -47,6 +54,7 @@ export default function newPatient() {
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
+
             dateFormat="dd/MM/yyyy"
             filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
             isClearable
@@ -55,6 +63,7 @@ export default function newPatient() {
             name="dob"
             onChange={handleOnChange}
           ></DatePicker>
+
 
         </div>
         <div className="newPatientItem">
@@ -109,4 +118,5 @@ export default function newPatient() {
       </form>
     </div>
   );
+}
 }

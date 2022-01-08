@@ -1,35 +1,35 @@
-.patientsList{
+.outpatientList{
     flex: 4;
 }
-.patientsEdit{
+.outpatientEdit{
     cursor: pointer;
     margin-right: 20px;
     color: rgb(42, 124, 218);
 }
-.patientsDelete{
+.outpatientDelete{
     cursor: pointer;
     color: crimson;
 }
-.patientListTitleContainer{
+.outpatientListTitleContainer{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.patientAddButton{
+.outpatientAddButton{
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     border: none;
     width: 100px;
-    padding: 7px 10px;
+    padding: 7px 7px;
     cursor: pointer;
     background-color: #8282F3;
     color: white;
     font-weight: 400;
     
 }
-.patientAdd{
+.outpatientAdd{
     display: flex;
     padding: 20px 5px;
     right: 0;
-    margin-left: 62em;
+    margin-left: 60em;
 }

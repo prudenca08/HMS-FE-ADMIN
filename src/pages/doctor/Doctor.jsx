@@ -3,11 +3,11 @@ import "./doc.css";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import PhoneIcon from "@material-ui/icons/Phone";
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import FaceIcon from '@material-ui/icons/Face';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import GradeIcon from '@material-ui/icons/Grade';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import FaceIcon from "@material-ui/icons/Face";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import GradeIcon from "@material-ui/icons/Grade";
+import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import { Link } from "react-router-dom";
 
 export default function Doctor() {
@@ -54,7 +54,7 @@ export default function Doctor() {
             <div className="doctorShowInfo">
               <GradeIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">
-              S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan
+                S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan
               </span>
             </div>
           </div>
@@ -97,11 +97,7 @@ export default function Doctor() {
               </div>
               <div className="doctorUpdateItem">
                 <label>Room</label>
-                <input
-                  type="text"
-                  value="H2"
-                  className="doctorUpdateInput"
-                />
+                <input type="text" value="H2" className="doctorUpdateInput" />
               </div>
               <div className="doctorUpdateItem">
                 <label>Username</label>

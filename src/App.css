@@ -1,9 +1,7 @@
-.containers{
-    display: flex ;
-    
+.containers {
+  display: flex;
 }
-.link{
-    text-decoration: none;
-    color: inherit;
+.link {
+  text-decoration: none;
+  color: inherit;
 }
-
