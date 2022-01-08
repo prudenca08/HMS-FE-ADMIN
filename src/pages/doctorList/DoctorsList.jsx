@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import "./patientsList.css";
+import "./doctorsList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
-import { patientRows } from "../../dummyData";
+import { doctorRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 
-export default function PatientsList() {
-  const [data, setData] = useState(patientRows);
-  
+export default function DoctorsList() {
+  const [data, setData] = useState(doctorRows);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -16,37 +15,42 @@ export default function PatientsList() {
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "patient_name", headerName: "Name", width: 130 },
-    { field: "nik", headerName: "NIK", width: 130 },
+    { field: "doctor_name", headerName: "Name", width: 130 },
+    { field: "nip", headerName: "NIP", width: 130 },
     {
-      field: "dob",
-      headerName: "Date of Birth",
-      type: "date",
+      field: "phone",
+      headerName: "Phone",
+      type: "number",
       width: 120,
     },
     {
-      field: "gender",
-      headerName: "Gender",
+      field: "specialist",
+      headerName: "Specialist",
+      width: 120,
+    },
+    {
+      field: "room",
+      headerName: "Room",
       width: 90,
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
-      type: "number",
+      field: "username",
+      headerName: "Username",
       width: 130,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "password",
+      headerName: "Password",
+      type: "password",
       width: 130,
     },
 
     {
-      field: "symptoms",
-      headerName: "Symptoms",
+      field: "experience",
+      headerName: "Experience",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 160,
+      width: 170,
     },
     {
       field: "action",
@@ -55,11 +59,11 @@ export default function PatientsList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/patient/" + params.row.id}>
-              <EditIcon className="patientsEdit" />
+            <Link to={"/doctor/" + params.row.id}>
+              <EditIcon className="doctorsEdit" />
             </Link>
             <DeleteOutlineIcon
-              className="patientsDelete"
+              className="doctorsDelete"
               onClick={() => handleDelete(params.row.id)}
             />
           </>
@@ -69,9 +73,14 @@ export default function PatientsList() {
   ];
 
   return (
-    <div className="patientsList">
-      <div className="patientListTitleContainer">
-        <h3 className="patientListTitle">Patients</h3>
+    <div className="doctorsList">
+      <div className="doctorListTitleContainer">
+        <h3 className="ListTitle">Doctors</h3>
+      </div>
+      <div className="doctorAdd">
+        <Link to="/newDoctor">
+          <button className="doctorAddButton">+Add New</button>
+        </Link>
       </div>
       <DataGrid
         rows={data}
