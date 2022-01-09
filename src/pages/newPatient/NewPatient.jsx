@@ -6,10 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function NewPatient() {
   const [selectedDate, setSelectedDate] = useState(null);
 
-
-
-export default function newPatient() {
-
   const [field, setField] = useState({
     patient_name: "",
     nik: "",
@@ -19,6 +15,7 @@ export default function newPatient() {
     address: "",
     symptoms: "",
   });
+ 
 
   const handleOnChange = (event) => {
     let tmp = field;
@@ -61,7 +58,7 @@ export default function newPatient() {
             showYearDropdown
             scrollableMonthYearDropdown
             name="dob"
-            onChange={handleOnChange}
+          
           ></DatePicker>
 
 
@@ -76,7 +73,7 @@ export default function newPatient() {
               value="pria"
               onChange={handleOnChange}
             />
-            <label for="pria">Pria</label>
+            <label htmlFor="">Pria</label>
             <input
               type="radio"
               name="gender"
@@ -84,7 +81,7 @@ export default function newPatient() {
               value="perempuan"
               onChange={handleOnChange}
             />
-            <label for="perempuan">Perempuan</label>
+            <label >Perempuan</label>
           </div>
         </div>
         <div className="newPatientItem">
@@ -119,4 +116,4 @@ export default function newPatient() {
     </div>
   );
 }
-}
+

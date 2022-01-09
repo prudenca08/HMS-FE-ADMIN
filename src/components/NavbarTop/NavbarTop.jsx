@@ -14,15 +14,21 @@ export default function NavbarTop(props) {
       target.classList.add("hide");
     }
   };
-  const handleOnClickRedirect = (event)=>{
-      let target = event.target.getAttribute("to");
-      history.push(target)
-  }
+  const handleOnClickRedirect = (event) => {
+    let target = event.target.getAttribute("to");
+    history.push(target);
+  };
   return (
     <div className="navbarTop">
       <div className="navbarTopWrapper">
         <div className="navbarTopLeft">
-          <img src={Logo} alt="" className="logo" onClick={handleOnClickRedirect}  to="/" />
+          <img
+            src={Logo}
+            alt=""
+            className="logo"
+            onClick={handleOnClickRedirect}
+            to="/"
+          />
         </div>
         <div className="navbarTopRight">
           <img
@@ -32,6 +38,7 @@ export default function NavbarTop(props) {
             id="dropdown-logout"
             onClick={handleOnClickProfile}
           />
+
           <div
             className="dropdown-item-custom shadow hide"
             id="dropdown-profile"
