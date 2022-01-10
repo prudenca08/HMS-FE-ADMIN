@@ -46,6 +46,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  .form-logo{
+    width: 50%;
+    position: absolute;
+    padding-top: 25px;
+    left: 35%;
+  }
   
   .form-success {
     text-align: center;
@@ -119,11 +125,7 @@
     height: 50px;
     margin-top: 10px;
     border-radius: 2px;
-    background: linear-gradient(
-      90deg,
-      rgb(39, 176, 255) 0%,
-      rgb(0, 232, 236) 100%
-    );
+    background:  #8282f3;
     outline: none;
     border: none;
     color: #fff;

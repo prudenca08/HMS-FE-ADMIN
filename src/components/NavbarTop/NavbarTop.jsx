@@ -18,6 +18,9 @@ export default function NavbarTop(props) {
     let target = event.target.getAttribute("to");
     history.push(target);
   };
+
+  
+    
   return (
     <div className="navbarTop">
       <div className="navbarTopWrapper">
@@ -43,7 +46,8 @@ export default function NavbarTop(props) {
             className="dropdown-item-custom shadow hide"
             id="dropdown-profile"
           >
-            <span>Log out</span>
+            <span  onClick={handleOnClickRedirect}
+            to="/login">Log out</span>
           </div>
         </div>
       </div>

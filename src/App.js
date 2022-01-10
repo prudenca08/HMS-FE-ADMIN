@@ -15,57 +15,64 @@ import ManagePatientSchedule from "./pages/managePatientSchedule/ManagePatientSc
 import ManageOutpatient from "./pages/manageOutpatient/ManageOutpatient";
 import NewOutpatient from "./pages/newOutpatient/NewOutpatient";
 import Outpatient from "./pages/outpatient/Outpatient";
-import Form from "./pages/login/Form";
+import FormLogin from "./pages/login/Form";
 
 function App() {
   return (
     <Router>
-      <NavbarTop />
-      <div className="containers">
-        <Sidebar
-          onCollapse={(inactive) => {
-            console.log(inactive);
-          }}
-        />
-        <Switch>
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route path="/patients">
-            <PatientsList />
-          </Route>
-          <Route path="/patient/:patientId">
-            <Patient />
-          </Route>
-          <Route path="/newPatient">
-            <NewPatient />
-          </Route>
-          <Route path="/doctors">
-            <DoctorsList />
-          </Route>
-          <Route path="/doctor/:doctorId">
-            <Doctor />
-          </Route>
-          <Route path="/newDoctor">
-            <NewDoctor />
-          </Route>
-          <Route path ="/manage/drschedule">
-            <ManageDrSchedule />
-          </Route>
-          <Route path ="/manage/patientschedule">
-            <ManagePatientSchedule />
-          </Route>
-          <Route path ="/manage/outpatient">
-            <ManageOutpatient />
-          </Route>
-          <Route path="/outpatient/:outpatientId">
-            <Outpatient/>
-          </Route>
-          <Route path="/newOutpatient">
-            <NewOutpatient />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path="/login">
+          <FormLogin />
+        </Route>
+        <>
+          <NavbarTop />
+          <div className="containers">
+            <Sidebar
+              onCollapse={(inactive) => {
+                console.log(inactive);
+              }}
+            />
+            <Switch>
+              <Route exact path="/">
+                <Dashboard />
+              </Route>
+              <Route path="/patients">
+                <PatientsList />
+              </Route>
+              <Route path="/patient/:patientId">
+                <Patient />
+              </Route>
+              <Route path="/newPatient">
+                <NewPatient />
+              </Route>
+              <Route path="/doctors">
+                <DoctorsList />
+              </Route>
+              <Route path="/doctor/:doctorId">
+                <Doctor />
+              </Route>
+              <Route path="/newDoctor">
+                <NewDoctor />
+              </Route>
+              <Route path="/manage/drschedule">
+                <ManageDrSchedule />
+              </Route>
+              <Route path="/manage/patientschedule">
+                <ManagePatientSchedule />
+              </Route>
+              <Route path="/manage/outpatient">
+                <ManageOutpatient />
+              </Route>
+              <Route path="/outpatient/:outpatientId">
+                <Outpatient />
+              </Route>
+              <Route path="/newOutpatient">
+                <NewOutpatient />
+              </Route>
+            </Switch>
+          </div>
+        </>
+      </Switch>
     </Router>
   );
 }

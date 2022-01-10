@@ -1,12 +1,36 @@
 import React from 'react';
 import useForm from './useForm';
 import './form.css';
+import { actionLogin } from '../../config/redux/action';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-const FormSignin = ({ submitForm }) => {
+const validateForm = (value)=>{
+  let error = {"username": "", "password" : ""}
+  if(value.username === ""){
+    error.username= "email tidak boleh kosong"
+  }else {
+    delete error.username
+  }
+  if(value.password === ""){
+    error.password= "password tidak boleh kosong"
+  }else {
+    delete error.password
+  }
+  return error;
+}
+
+
+
+const FormSignin = (props) => {
+  const history = useHistory()
   const { handleChange, handleSubmit, values, errors } = useForm(
-    submitForm,
+     props.loginProcess, validateForm, history
   
   );
+
+
+ 
 
   return (
     <div className='form-content-right'>
@@ -46,4 +70,11 @@ const FormSignin = ({ submitForm }) => {
   );
 };
 
-export default FormSignin;
+const reduxState = (state) => ({
+  isLogin: state.isLogin,
+});
+const reduxDispatch = (dispatch) => ({
+  loginProcess: (data) => dispatch(actionLogin(data)),
+});
+
+export default connect(reduxState, reduxDispatch)(FormSignin);
