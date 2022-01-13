@@ -35,7 +35,7 @@ const useForm = (callback, validate, redirect) => {
           if (err.status === 401) {
             error.password = "password salah";
           } else if (err.status === 404) {
-            error.username = "email tidak tersedia";
+            error.username = "invalid username";
             
           }
           setErrors(error);
