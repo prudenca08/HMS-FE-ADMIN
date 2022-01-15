@@ -4,6 +4,7 @@ const initialState = {
   user: localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null,
+  patient: [],
 };
 
 const listAction = [
@@ -15,20 +16,39 @@ const listAction = [
   },
   //Change user
   {
-      type : "CHANGE_USER",
-      name : "user",
-      action : null,
+    type: "CHANGE_USER",
+    name: "user",
+    action: null,
   },
   //Change Loading
   {
-      type : "CHANGE_LOADING",
-      name : "isLoading",
-      action: (state, actions)=>{
-          state.isLoading = actions.value;
-          return{
-              ...state,
-          };
-      },
+    type: "CHANGE_LOADING",
+    name: "isLoading",
+    action: (state, actions) => {
+      state.isLoading = actions.value;
+      return {
+        ...state,
+      };
+    },
+  },
+  {
+    //patient
+    type: "CHANGE_PATIENT",
+    name: "patient",
+    action: null,
+  },
+  //add patient
+  {
+    type: "ADD_PATIENTS",
+    name: "patient",
+    action: (state, actions) => {
+      let tmp = [...state.patient];
+      tmp.push(actions.value);
+      return {
+        ...state,
+        ["patient"]: tmp,
+      };
+    },
   },
 ];
 
@@ -42,6 +62,7 @@ const reducer = (state = initialState, actions) => {
         ...found.action(state, actions),
       };
     }
+    console.log(actions);
     state[found.name] = actions.value;
     return {
       ...state,

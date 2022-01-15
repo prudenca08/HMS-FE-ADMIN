@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./patientsList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import { patientRows } from "../../dummyData";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { actionGetAllPatients } from "../../config/redux/action";
 
-export default function PatientsList() {
+const PatientsList = (props) => {
   const [data, setData] = useState(patientRows);
-  
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
 
+  useEffect(() => {
+    if (props.patient.length <= 0) {
+      props.AllPatients().then(() => {
+       
+        console.log(props.patient);
+      });
+    }else{
+      setData(props.patient)
+    }
+
+  }, [props]);
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "patient_name", headerName: "Name", width: 130 },
+    { field: "name", headerName: "Name", width: 130 },
     { field: "nik", headerName: "NIK", width: 130 },
     {
       field: "dob",
@@ -77,14 +90,24 @@ export default function PatientsList() {
           <button className="patientAddButton">+Add New</button>
         </Link>
       </div>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
+      {props.patient.length !== 0 && (
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      )}
     </div>
   );
-}
+};
+const reduxState = (state) => ({
+  patient: state.patient,
+});
+const reduxDispatch = (dispatch) => ({
+  AllPatients: (data) => dispatch(actionGetAllPatients(data)),
+});
+
+export default connect(reduxState, reduxDispatch)(PatientsList);

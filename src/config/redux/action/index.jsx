@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 import { GetConstant } from "../../constants";
 axios.defaults.baseURL = GetConstant("API_URL");
 axios.defaults.headers = {
@@ -31,6 +31,47 @@ export const actionLogin = (data) => (dispatch) => {
         localStorage.removeItem("user");
         localStorage.removeItem("token");
         reject(err.response);
+      });
+  });
+};
+export const actionGetAllPatients = () => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get("/patient", {})
+      .then((result) => {
+        let data = [...result.data.data];
+        data.forEach((item) => {
+          item.id = item["id:"];
+        });
+        console.log(data);
+        dispatch({ type: "CHANGE_PATIENT", value: data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        dispatch({ type: "CHANGE_PATIENT", value: [] });
+        reject(err.response);
+      });
+  });
+};
+export const actionCreatePatients = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .post("/admins/create-patient", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data); 
+        dispatch({ type: "ADD_PATIENT", value: data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        reject(err.response);
+        console.log(data);
       });
   });
 };
