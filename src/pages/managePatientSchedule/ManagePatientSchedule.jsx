@@ -1,26 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./managePatientSchedule.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import { patientscheduleRows } from "../../dummyData";
 import NewPatientSchedule from "../newPatientSchedule/NewPatientSchedule";
+import { connect } from "react-redux";
+import { actionDeletePatSchedule, actionGetAllPatientSchedule } from "../../config/redux/action";
 
-
-export default function ManagePatientSchedule() {
+const ManagePatientSchedule = (props) => {
   const [data, setData] = useState(patientscheduleRows);
   const [modal, setModal] = useState(false);
-  const [editID, setEditID] = useState();
+  const [dataModal, setDataModal] = useState(null);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    props.deletePatSchedule({ id: id }).then(() => {});
   };
 
-  const handleOnclickEdit = (event, id) => {
-    console.log("id =>" + id);
+  const handleOnclickEdit = (event,  item) => {
+    console.log("id =>" + item.id);
     setModal(true);
-    setEditID(id);
+    setDataModal(item);
   };
+
+  const handleClose = (event) => {
+    setModal(false);
+    setDataModal(null);
+  };
+
+  useEffect(() => {
+    if (props.patsche.length <= 0) {
+      props.AllPatSchedule().then(()=>{
+        console.log(props.patsche)
+      });
+    }else{
+      setData(props.patsche)
+    }
+  }, [props]);
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
@@ -35,7 +51,7 @@ export default function ManagePatientSchedule() {
           <>
             <EditIcon
               className="drscheduleEdit"
-              onClick={(event) => handleOnclickEdit(event, params.row.id)}
+              onClick={(event) => handleOnclickEdit(event, params.row)}
             />
             <DeleteOutlineIcon
               className="drscheduleDelete"
@@ -55,30 +71,41 @@ export default function ManagePatientSchedule() {
       <div className="doctorscheduleAdd">
         <button
           className="doctorscheduleAddButton"
-          onClick={() => setModal(true)}
+          onClick={() => {
+            setModal(true);
+            setDataModal(null);
+          }}
         >
           +Add New
         </button>
       </div>
       {modal ? (
         <div className="manage-modal shadow" id="manage-modal">
-          <NewPatientSchedule
-            modalClose={setModal}
-            deleteID={setEditID}
-            idModal={editID}
-          />
+          <NewPatientSchedule closeFunction={handleClose} data={dataModal} />
         </div>
       ) : null}
-
-      <DataGrid
+      {props.patsche.length !== 0 && (
+        <DataGrid
         rows={data}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
         className="drscheduleTable"
       />
+
+      )}
+      
     </div>
   );
-}
+};
+const reduxState = (state) => ({
+  patsche: state.patsche,
+});
+const reduxDispatch = (dispatch) => ({
+  AllPatSchedule: (data) => dispatch(actionGetAllPatientSchedule(data)),
+  deletePatSchedule : (data) => dispatch(actionDeletePatSchedule(data)),
+});
+
+export default connect(reduxState, reduxDispatch)(ManagePatientSchedule);

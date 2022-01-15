@@ -26,12 +26,14 @@ export default function DoctorsList() {
     {
       field: "specialist",
       headerName: "Specialist",
-      width: 90,
+
+      width: 120,
     },
     {
       field: "room",
       headerName: "Room",
-      width: 130,
+
+      width: 90,
     },
     {
       field: "username",
@@ -50,7 +52,8 @@ export default function DoctorsList() {
       headerName: "Experience",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 160,
+
+      width: 170,
     },
     {
       field: "action",

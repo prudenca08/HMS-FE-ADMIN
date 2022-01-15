@@ -3,11 +3,11 @@ import "./doc.css";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ConfirmationNumberIcon from "@material-ui/icons/ConfirmationNumber";
 import PhoneIcon from "@material-ui/icons/Phone";
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import FaceIcon from '@material-ui/icons/Face';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import GradeIcon from '@material-ui/icons/Grade';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import FaceIcon from "@material-ui/icons/Face";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import GradeIcon from "@material-ui/icons/Grade";
+import NoteAddIcon from "@material-ui/icons/NoteAdd";
 import { Link } from "react-router-dom";
 
 export default function Doctor() {
@@ -54,7 +54,7 @@ export default function Doctor() {
             <div className="doctorShowInfo">
               <GradeIcon className="doctorShowIcon" />
               <span className="doctorShowInfoTitle">
-              S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan
+                S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan
               </span>
             </div>
           </div>
@@ -67,7 +67,7 @@ export default function Doctor() {
                 <label>Name</label>
                 <input
                   type="text"
-                  placeholder="Margareth Ellie"
+                  value="Margareth Ellie"
                   className="doctorUpdateInput"
                 />
               </div>
@@ -75,7 +75,7 @@ export default function Doctor() {
                 <label>NIP</label>
                 <input
                   type="text"
-                  placeholder="12125634256"
+                  value="12125634256"
                   className="doctorUpdateInput"
                 />
               </div>
@@ -83,7 +83,7 @@ export default function Doctor() {
                 <label>Phone</label>
                 <input
                   type="text"
-                  placeholder="088888"
+                  value="088888"
                   className="doctorUpdateInput"
                 />
               </div>
@@ -91,23 +91,19 @@ export default function Doctor() {
                 <label>Specialist</label>
                 <input
                   type="text"
-                  placeholder="Tenaga Dalam"
+                  value="Tenaga Dalam"
                   className="doctorUpdateInput"
                 />
               </div>
               <div className="doctorUpdateItem">
                 <label>Room</label>
-                <input
-                  type="text"
-                  placeholder="H2"
-                  className="doctorUpdateInput"
-                />
+                <input type="text" value="H2" className="doctorUpdateInput" />
               </div>
               <div className="doctorUpdateItem">
                 <label>Username</label>
                 <input
                   type="text"
-                  placeholder="abc123"
+                  value="abc123"
                   className="doctorUpdateInput"
                 />
               </div>
@@ -115,7 +111,7 @@ export default function Doctor() {
                 <label>Password</label>
                 <input
                   type="text"
-                  placeholder="abc123"
+                  value="abc123"
                   className="doctorUpdateInput"
                 />
               </div>
@@ -123,7 +119,7 @@ export default function Doctor() {
                 <label>Status</label>
                 <input
                   type="text"
-                  placeholder="Standby"
+                  value="Standby"
                   className="doctorUpdateInput"
                 />
               </div>
@@ -133,7 +129,7 @@ export default function Doctor() {
                 <label>Experince</label>
                 <textarea
                   type="text"
-                  placeholder="S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan"
+                  value="S1- Kedokteran Umum Undip , S2 - Ilmu Perdukunan"
                   className="doctorUpdateInput"
                 />
               </div>
