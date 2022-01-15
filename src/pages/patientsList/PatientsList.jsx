@@ -6,13 +6,16 @@ import EditIcon from "@material-ui/icons/Edit";
 import { patientRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { actionGetAllPatients } from "../../config/redux/action";
+import { actionDeletePatients, actionGetAllPatients } from "../../config/redux/action";
 
 const PatientsList = (props) => {
   const [data, setData] = useState(patientRows);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    props.deletePatient({id:id})
+    .then(()=>{
+      
+    })
   };
 
   useEffect(() => {
@@ -108,6 +111,7 @@ const reduxState = (state) => ({
 });
 const reduxDispatch = (dispatch) => ({
   AllPatients: (data) => dispatch(actionGetAllPatients(data)),
+  deletePatient : (data) => dispatch(actionDeletePatients(data)),
 });
 
 export default connect(reduxState, reduxDispatch)(PatientsList);

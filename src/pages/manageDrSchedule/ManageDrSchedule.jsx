@@ -1,25 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./manageDrSchedule.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import { drscheduleRows } from "../../dummyData";
 import NewDrSchedule from "../newDrSchedule/NewDrSchedule";
+import { connect } from "react-redux";
+import { actionDeleteDocSchedule, actionGetAllDoctorSchedule } from "../../config/redux/action";
 
-export default function ManageDrSchedule() {
+const ManageDrSchedule = (props) => {
   const [data, setData] = useState(drscheduleRows);
   const [modal, setModal] = useState(false);
-  const [editID, setEditID] = useState();
+  const [dataModal, setDataModal] = useState(null);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    props.deleteDocSchedule({id:id})
+    .then(()=>{
+
+    })
   };
 
-  const handleOnclickEdit = (event, id) => {
-    console.log("id =>" + id);
+  const handleOnclickEdit = (event,  item) => {
+    console.log("id =>" + item.id);
     setModal(true);
-    setEditID(id);
+    setDataModal(item);
   };
+
+  const handleClose = (event) =>{
+    setModal(false)
+    setDataModal(null)
+  }
+
+  useEffect(() => {
+    if (props.docsche.length <= 0) {
+      props.AllDocSchedule().then(() => {
+        console.log(props.docsche);
+      });
+    } else {
+      setData(props.docsche);
+    }
+  }, [props]);
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
@@ -34,7 +54,7 @@ export default function ManageDrSchedule() {
           <>
             <EditIcon
               className="drscheduleEdit"
-              onClick={(event) => handleOnclickEdit(event, params.row.id)}
+              onClick={(event) => handleOnclickEdit(event, params.row)}
             />
             <DeleteOutlineIcon
               className="drscheduleDelete"
@@ -54,7 +74,8 @@ export default function ManageDrSchedule() {
       <div className="doctorscheduleAdd">
         <button
           className="doctorscheduleAddButton"
-          onClick={() => setModal(true)}
+          onClick={() => {setModal(true); setDataModal(null)
+          }}
         >
           +Add New
         </button>
@@ -62,22 +83,31 @@ export default function ManageDrSchedule() {
       {modal ? (
         <div className="manage-modal shadow" id="manage-modal">
           <NewDrSchedule
-            modalClose={setModal}
-            deleteID={setEditID}
-            idModal={editID}
+           closeFunction = {handleClose}
+            data={dataModal}
           />
         </div>
       ) : null}
-
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-        className="drscheduleTable"
-      />
+      {props.docsche.length !== 0 && (
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          checkboxSelection
+          disableSelectionOnClick
+          className="drscheduleTable"
+        />
+      )}
     </div>
   );
-}
+};
+const reduxState = (state) => ({
+  docsche: state.docsche,
+});
+const reduxDispatch = (dispatch) => ({
+  AllDocSchedule: (data) => dispatch(actionGetAllDoctorSchedule(data)),
+  deleteDocSchedule : (data) => dispatch(actionDeleteDocSchedule(data)),
+});
+
+export default connect(reduxState, reduxDispatch)(ManageDrSchedule);

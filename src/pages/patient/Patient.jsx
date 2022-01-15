@@ -7,15 +7,18 @@ import WcIcon from "@material-ui/icons/Wc";
 import PhoneIcon from "@material-ui/icons/Phone";
 import HomeIcon from "@material-ui/icons/Home";
 import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
-import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
+import { actionUpdatePatients } from "../../config/redux/action";
+import Loading from "../../assets/img/icon/load.gif";
+import { useHistory } from "react-router-dom";
 
 const Patient = (props) => {
   const [field, setField] = useState({
+    id : "",
     name: "",
     nik: "",
     dob: "",
@@ -24,9 +27,11 @@ const Patient = (props) => {
     address: "",
     symptoms: "",
   });
+  const history = useHistory()
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [patient, setPatient] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (props.patient.length !== 0 && patient.name === undefined) {
@@ -35,7 +40,7 @@ const Patient = (props) => {
       let tmp = {};
       Object.keys(field).forEach((k) => {
         tmp[k] = patient[k];
-        console.log(patient[k])
+        console.log(patient[k]);
       });
       setField(tmp);
     }
@@ -45,7 +50,23 @@ const Patient = (props) => {
 
   const handleOnChange = (event) => {
     let { name, value } = event.currentTarget;
-    setPatient({ ...field, [name]: value });
+    setField({ ...field, [name]: value });
+  };
+
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    console.log(field)
+    props
+      .UpdatePatient(field)
+      .then((res) => {
+        console.log(res);
+        history.push("/patients");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
   };
 
   return (
@@ -90,7 +111,7 @@ const Patient = (props) => {
         </div>
         <div className="patientUpdate">
           <span className="patientUpdateTitle">Edit</span>
-          <form className="patientUpdateForm">
+          <form className="patientUpdateForm" onSubmit={handleOnSubmit}>
             <div className="patientUpdateLeft">
               <div className="patientUpdateItem">
                 <label>Name</label>
@@ -180,10 +201,11 @@ const Patient = (props) => {
                   value={field.symptoms}
                   onChange={handleOnChange}
                   className="patientUpdateInput"
-                  
                 />
               </div>
-              <button className="patientUpdateButton">Save</button>
+              <button disabled={isLoading} className="patientUpdateButton">
+                {isLoading ? <img src={Loading} alt="" width="40px" /> : "Save"}
+              </button>
             </div>
           </form>
         </div>
@@ -195,6 +217,8 @@ const Patient = (props) => {
 const reduxState = (state) => ({
   patient: state.patient,
 });
-const reduxDispatch = (dispatch) => ({});
+const reduxDispatch = (dispatch) => ({
+  UpdatePatient: (data) => dispatch(actionUpdatePatients(data)),
+});
 
 export default connect(reduxState, reduxDispatch)(Patient);

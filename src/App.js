@@ -16,6 +16,7 @@ import ManageOutpatient from "./pages/manageOutpatient/ManageOutpatient";
 import NewOutpatient from "./pages/newOutpatient/NewOutpatient";
 import Outpatient from "./pages/outpatient/Outpatient";
 import FormLogin from "./pages/login/Form";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -33,42 +34,42 @@ function App() {
               }}
             />
             <Switch>
-              <Route exact path="/">
+              <PrivateRoute exact path="/">
                 <Dashboard />
-              </Route>
-              <Route path="/patients">
+              </PrivateRoute>
+              <PrivateRoute path="/patients">
                 <PatientsList />
-              </Route>
-              <Route path="/patient/:patientId">
+              </PrivateRoute>
+              <PrivateRoute path="/patient/:patientId">
                 <Patient />
-              </Route>
-              <Route path="/newPatient">
+              </PrivateRoute>
+              <PrivateRoute path="/newPatient">
                 <NewPatient />
-              </Route>
-              <Route path="/doctors">
+              </PrivateRoute>
+              <PrivateRoute path="/doctors">
                 <DoctorsList />
-              </Route>
-              <Route path="/doctor/:doctorId">
+              </PrivateRoute>
+              <PrivateRoute path="/doctor/:doctorId">
                 <Doctor />
-              </Route>
-              <Route path="/newDoctor">
+              </PrivateRoute>
+              <PrivateRoute path="/newDoctor">
                 <NewDoctor />
-              </Route>
-              <Route path="/manage/drschedule">
+              </PrivateRoute>
+              <PrivateRoute path="/manage/drschedule">
                 <ManageDrSchedule />
-              </Route>
-              <Route path="/manage/patientschedule">
+              </PrivateRoute>
+              <PrivateRoute path="/manage/patientschedule">
                 <ManagePatientSchedule />
-              </Route>
-              <Route path="/manage/outpatient">
+              </PrivateRoute>
+              <PrivateRoute path="/manage/outpatient">
                 <ManageOutpatient />
-              </Route>
-              <Route path="/outpatient/:outpatientId">
+              </PrivateRoute>
+              <PrivateRoute path="/outpatient/:outpatientId">
                 <Outpatient />
-              </Route>
-              <Route path="/newOutpatient">
+              </PrivateRoute>
+              <PrivateRoute path="/newOutpatient">
                 <NewOutpatient />
-              </Route>
+              </PrivateRoute>
             </Switch>
           </div>
         </>
