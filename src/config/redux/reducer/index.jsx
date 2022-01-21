@@ -50,7 +50,7 @@ const listAction = [
       tmp.push(actions.value);
       return {
         ...state,
-        ["patient"]: tmp,
+        patient: tmp,
       };
     },
   },
@@ -81,7 +81,7 @@ const listAction = [
       tmp.splice(findIndex, 1);
       return {
         ...state,
-        ["patient"]: tmp,
+        patient: tmp,
       };
     },
   },
