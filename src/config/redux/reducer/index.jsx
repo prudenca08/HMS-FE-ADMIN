@@ -101,7 +101,7 @@ const listAction = [
       tmp.push(actions.value);
       return {
         ...state,
-        ["doctor"]: tmp,
+       doctor: tmp,
       };
     },
   },
@@ -117,7 +117,7 @@ const listAction = [
       tmp.splice(findIndex, 1);
       return {
         ...state,
-        ["doctor"]: tmp,
+        doctor: tmp,
       };
     },
   },
@@ -133,7 +133,7 @@ const listAction = [
       tmp[findIndex] = actions.value;
       return {
         ...state,
-        ["doctor"]: tmp,
+        doctor: tmp,
       };
     },
   },
@@ -151,7 +151,7 @@ const listAction = [
       tmp.push(actions.value);
       return {
         ...state,
-        ["outpatient"]: tmp,
+        outpatient: tmp,
       };
     },
   },
@@ -166,7 +166,7 @@ const listAction = [
       tmp[findIndex] = actions.value;
       return {
         ...state,
-        ["outpatient"]: tmp,
+        outpatient: tmp,
       };
     },
   },
@@ -181,7 +181,7 @@ const listAction = [
       tmp.splice(findIndex, 1);
       return {
         ...state,
-        ["outpatient"]: tmp,
+        outpatient: tmp,
       };
     },
   },
@@ -200,7 +200,7 @@ const listAction = [
       tmp.push(actions.value);
       return {
         ...state,
-        ["docsche"]: tmp,
+        docsche: tmp,
       };
     },
   },
@@ -216,7 +216,7 @@ const listAction = [
       tmp[findIndex] = actions.value;
       return {
         ...state,
-        ["docsche"]: tmp,
+        docsche: tmp,
       };
     },
   },
@@ -232,7 +232,7 @@ const listAction = [
       tmp.splice(findIndex, 1);
       return {
         ...state,
-        ["docsche"]: tmp,
+        docsche: tmp,
       };
     },
   },
@@ -251,7 +251,7 @@ const listAction = [
       tmp.push(actions.value);
       return {
         ...state,
-        ["patsche"]: tmp,
+        patsche: tmp,
       };
     },
   },
@@ -267,7 +267,7 @@ const listAction = [
       tmp[findIndex] = actions.value;
       return {
         ...state,
-        ["patsche"]: tmp,
+        patsche: tmp,
       };
     },
   },
@@ -283,7 +283,7 @@ const listAction = [
       tmp.splice(findIndex, 1);
       return {
         ...state,
-        ["patsche"]: tmp,
+        patsche: tmp,
       };
     },
   },
