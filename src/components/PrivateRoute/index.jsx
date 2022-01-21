@@ -1,7 +1,6 @@
 import React from "react";
 import { isExpired } from "react-jwt";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { ChangeGlobalRedux } from "../../config/redux/action";

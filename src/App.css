@@ -1,5 +1,8 @@
 .containers {
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 .link {
   text-decoration: none;
@@ -9,9 +12,10 @@
 width: calc(100% - 250px);
 overflow-y: auto;
 } */
-.containers > :nth-child(2) {
+.containers > :nth-child(3) {
   overflow-y: auto;
   width: calc(100% - 250px);
+  height: calc(100vh - 60px);
 }
 
 ::-webkit-scrollbar {
@@ -32,4 +36,17 @@ overflow-y: auto;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(121, 121, 121);
+}
+
+
+.btn-add-custom{
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 100px;
+  padding: 7px 10px;
+  cursor: pointer;
+  background-color: #8282F3;
+  color: white;
+  font-weight: 400;
 }

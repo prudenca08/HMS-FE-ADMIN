@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarTop from "./components/NavbarTop/NavbarTop";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Dashboard from "./pages/dashboard";
 import PatientsList from "./pages/patientsList/PatientsList";
 import Patient from "./pages/patient/Patient";
 import NewPatient from "./pages/newPatient/NewPatient";
@@ -26,58 +26,55 @@ function App() {
         <Route exact path="/login">
           <FormLogin />
         </Route>
-        <>
+        <div className="containers">
           <NavbarTop />
-          <div className="containers">
-            <Sidebar
-              onCollapse={(inactive) => {
-                console.log(inactive);
-              }}
-            />
-
-            <Switch>
-              <PrivateRoute exact path="/">
-                <Dashboard />
-              </PrivateRoute>
-              <PrivateRoute path="/patients">
-                <PatientsList />
-              </PrivateRoute>
-              <PrivateRoute path="/patient/:patientId">
-                <Patient />
-              </PrivateRoute>
-              <PrivateRoute path="/newPatient">
-                <NewPatient />
-              </PrivateRoute>
-              <PrivateRoute path="/doctors">
-                <DoctorsList />
-              </PrivateRoute>
-              <PrivateRoute path="/doctor/:doctorId">
-                <Doctor />
-              </PrivateRoute>
-              <PrivateRoute path="/newDoctor">
-                <NewDoctor />
-              </PrivateRoute>
-              <PrivateRoute path="/manage/drschedule">
-                <ManageDrSchedule />
-              </PrivateRoute>
-              <PrivateRoute path="/manage/patientschedule">
-                <ManagePatientSchedule />
-              </PrivateRoute>
-              <PrivateRoute path="/manage/outpatient">
-                <ManageOutpatient />
-              </PrivateRoute>
-              <PrivateRoute path="/outpatient/:outpatientId">
-                <Outpatient />
-              </PrivateRoute>
-              <PrivateRoute path="/newOutpatient">
-                <NewOutpatient />
-              </PrivateRoute>
-              <PrivateRoute path="/faq">
-                <Faq />
-              </PrivateRoute>
-            </Switch>
-          </div>
-        </>
+          <Sidebar
+            onCollapse={(inactive) => {
+              console.log(inactive);
+            }}
+          />
+          <Switch>
+            <PrivateRoute exact path="/">
+              <Dashboard />
+            </PrivateRoute>
+            <PrivateRoute path="/patients">
+              <PatientsList />
+            </PrivateRoute>
+            <PrivateRoute path="/patient/:patientId">
+              <Patient />
+            </PrivateRoute>
+            <PrivateRoute path="/newPatient">
+              <NewPatient />
+            </PrivateRoute>
+            <PrivateRoute path="/doctors">
+              <DoctorsList />
+            </PrivateRoute>
+            <PrivateRoute path="/doctor/:doctorId">
+              <Doctor />
+            </PrivateRoute>
+            <PrivateRoute path="/newDoctor">
+              <NewDoctor />
+            </PrivateRoute>
+            <PrivateRoute path="/manage/drschedule">
+              <ManageDrSchedule />
+            </PrivateRoute>
+            <PrivateRoute path="/manage/patientschedule">
+              <ManagePatientSchedule />
+            </PrivateRoute>
+            <PrivateRoute path="/manage/outpatient">
+              <ManageOutpatient />
+            </PrivateRoute>
+            <PrivateRoute path="/outpatient/:outpatientId">
+              <Outpatient />
+            </PrivateRoute>
+            <PrivateRoute path="/newOutpatient">
+              <NewOutpatient />
+            </PrivateRoute>
+            <PrivateRoute path="/faq">
+              <Faq />
+            </PrivateRoute>
+          </Switch>
+        </div>
       </Switch>
     </Router>
   );

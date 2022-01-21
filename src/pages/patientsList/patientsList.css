@@ -1,21 +1,8 @@
-.patientsList{
+/* .patientsList{
     flex: 4;
-}
-.patientsEdit{
-    cursor: pointer;
-    margin-right: 20px;
-    color: rgb(42, 124, 218);
-}
-.patientsDelete{
-    cursor: pointer;
-    color: crimson;
-}
-.patientListTitleContainer{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.patientAddButton{
+} */
+
+.btn-add-custom{
     margin-top: 10px;
     border-radius: 10px;
     border: none;
@@ -25,15 +12,4 @@
     background-color: #8282F3;
     color: white;
     font-weight: 400;
-    
 }
-.patientAdd{
-    display: flex;
-    padding: 20px 5px;
-    right: 0;
-    margin-left: 62em;
-}
-.data-grid{
-    width: 100%;
-}
-

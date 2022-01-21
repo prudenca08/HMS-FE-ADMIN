@@ -59,23 +59,17 @@ const Outpatient = (props) => {
 
   useEffect(() => {
     if (props.doctor.length <= 0) {
-      props.AllDoctor().then(() => {
-        console.log(props.doctor);
-      });
+      props.AllDoctor().then(() => {});
     } else {
       setDoctor(props.doctor);
     }
     if (props.patient.length <= 0) {
-      props.AllPatients().then(() => {
-        console.log(props.patient);
-      });
+      props.AllPatients().then(() => {});
     } else {
       setPatient(props.patient);
     }
     if (props.patsche.length <= 0) {
-      props.AllPatSchedule().then(() => {
-        console.log(props.patsche);
-      });
+      props.AllPatSchedule().then(() => {});
     } else {
       setPatsche(props.patsche);
     }
@@ -83,7 +77,6 @@ const Outpatient = (props) => {
 
   const handleChangeDate = (date) => {
     setField({ ...field, ["date"]: date });
-    console.log(field);
   };
 
   useEffect(() => {
@@ -95,32 +88,24 @@ const Outpatient = (props) => {
       let tmp = {};
       Object.keys(field).forEach((k) => {
         tmp[k] = outpatient[k];
-        console.log(outpatient[k]);
       });
       setField(tmp);
     }
     if (props.doctor.length <= 0) {
-      props.AllDoctor().then(() => {
-        console.log(props.doctor);
-      });
+      props.AllDoctor().then(() => {});
     } else {
       setDoctor(props.doctor);
     }
     if (props.patient.length <= 0) {
-      props.AllPatients().then(() => {
-        console.log(props.patient);
-      });
+      props.AllPatients().then(() => {});
     } else {
       setPatient(props.patient);
     }
     if (props.patsche.length <= 0) {
-      props.AllPatSchedule().then(() => {
-        console.log(props.patsche);
-      });
+      props.AllPatSchedule().then(() => {});
     } else {
       setPatsche(props.patsche);
     }
-
   }, [outpatient, props]);
 
   const params = useParams();
@@ -133,11 +118,9 @@ const Outpatient = (props) => {
   const handleOnchangeNik = (event) => {
     let { name, value } = event.currentTarget;
     setKeySearch({ ...keySearch, ["nik"]: value });
-    console.log(patient);
     let found = patient.find((i) => {
       return i.nik === value;
     });
-    console.log(found);
     if (found) {
       setAutofill({ ...autofill, patientName: found.name });
       setField({ ...field, patientid: found.id });
@@ -147,11 +130,9 @@ const Outpatient = (props) => {
   const handleOnchangeNip = (event) => {
     let { name, value } = event.currentTarget;
     setKeySearch({ ...keySearch, ["nip"]: value });
-    console.log(doctor);
     let found = doctor.find((i) => {
       return i.nip === value;
     });
-    console.log(found);
     if (found) {
       setAutofill({ ...autofill, doctor: found.name, room: found.room });
       setField({ ...field, doctorid: found.id });
@@ -170,17 +151,14 @@ const Outpatient = (props) => {
     field.schedule = patsche.find((i) => {
       return i.id === Number(field.patientscheduleid);
     });
-    console.log(field);
 
     props
       .createOutpatient(field)
       .then((res) => {
-        console.log(res);
         history.push("/manage/outpatient");
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err);
       });
   };
 

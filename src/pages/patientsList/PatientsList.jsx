@@ -6,28 +6,26 @@ import EditIcon from "@material-ui/icons/Edit";
 import { patientRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { actionDeletePatients, actionGetAllPatients } from "../../config/redux/action";
+import {
+  actionDeletePatients,
+  actionGetAllPatients,
+} from "../../config/redux/action";
 
 const PatientsList = (props) => {
   const [data, setData] = useState(patientRows);
 
   const handleDelete = (id) => {
-    props.deletePatient({id:id})
-    .then(()=>{
-      
-    })
+    props.deletePatient({ id: id }).then(() => {});
   };
 
   useEffect(() => {
     if (props.patient.length <= 0) {
       props.AllPatients().then(() => {
-       
         console.log(props.patient);
       });
-    }else{
-      setData(props.patient)
+    } else {
+      setData(props.patient);
     }
-
   }, [props]);
 
   const columns = [
@@ -62,40 +60,45 @@ const PatientsList = (props) => {
       width: 150,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={"/patient/" + params.row.id}>
-              <EditIcon className="patientsEdit" />
+          <div className="d-flex gap-3 align-items-center">
+            <Link
+              className="text-primary"
+              to={"/patient/" + params.row.id}
+              role="button"
+            >
+              <EditIcon />
             </Link>
             <DeleteOutlineIcon
-              className="patientsDelete"
+              role="button"
+              className="text-danger"
               onClick={() => handleDelete(params.row.id)}
             />
-          </>
+          </div>
         );
       },
     },
   ];
   return (
-    <div className="patientsList">
-      <div className="patientListTitleContainer">
-        <h3 className="ListTitle">Patients</h3>
-      </div>
-      <div className="patientAdd">
-        <Link to="/newPatient">
-          <button className="patientAddButton">+Add New</button>
+    <div className="patientsList p-3">
+      <h1>Patients</h1>
+      <div className="d-flex my-3">
+        <Link to="/newPatient" className="ms-auto">
+          <button className="btn-add-custom">+Add New</button>
         </Link>
       </div>
-      {props.patient.length !== 0 && (
-        <DataGrid
-          rows={data}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          checkboxSelection
-          disableSelectionOnClick
-          className="data-grid"
-        />
-      )}
+      <div className="grid-holder">
+        {props.patient.length !== 0 && (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            autoHeight={true}
+            // disableSelectionOnClick
+          />
+        )}
+      </div>
     </div>
   );
 };
@@ -104,7 +107,7 @@ const reduxState = (state) => ({
 });
 const reduxDispatch = (dispatch) => ({
   AllPatients: (data) => dispatch(actionGetAllPatients(data)),
-  deletePatient : (data) => dispatch(actionDeletePatients(data)),
+  deletePatient: (data) => dispatch(actionDeletePatients(data)),
 });
 
 export default connect(reduxState, reduxDispatch)(PatientsList);

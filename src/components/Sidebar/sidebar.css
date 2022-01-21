@@ -1,9 +1,7 @@
 .sidebar {
-  position: fixed;
   background-color: #181f31;
   width: 250px;
   height: calc(100vh - 60px);
-  position: sticky;
   box-sizing: border-box;
   padding: 30px 20px;
   transition: width .2s ease-in;
