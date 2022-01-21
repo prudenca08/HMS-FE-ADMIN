@@ -5,3 +5,30 @@
   text-decoration: none;
   color: inherit;
 }
+/* .center-side{
+width: calc(100% - 250px);
+overflow-y: auto;
+} */
+.containers > :nth-child(2) {
+  overflow-y: auto;
+  width: calc(100% - 250px);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(121, 121, 121);
+}

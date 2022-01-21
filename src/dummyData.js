@@ -147,7 +147,7 @@ export const patientscheduleRows=[
     time : "10.00 - 10.50"
   },
 ];
-export const outpatient = [
+export const outpatientRows = [
   {
     id : 1,
     patientName : "Margareth Ellie",

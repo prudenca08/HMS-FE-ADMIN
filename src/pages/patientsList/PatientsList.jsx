@@ -31,19 +31,18 @@ const PatientsList = (props) => {
   }, [props]);
 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "Name", width: 130 },
-    { field: "nik", headerName: "NIK", width: 130 },
+    { field: "name", headerName: "Full Name", width: 180 },
+    { field: "nik", headerName: "NIK", width: 150 },
     {
       field: "dob",
       headerName: "Date of Birth",
       type: "date",
-      width: 120,
+      width: 100,
     },
     {
       field: "gender",
       headerName: "Gender",
-      width: 90,
+      width: 100,
     },
     {
       field: "phone",
@@ -54,16 +53,9 @@ const PatientsList = (props) => {
     {
       field: "address",
       headerName: "Address",
-      width: 130,
+      width: 220,
     },
 
-    {
-      field: "symptoms",
-      headerName: "Symptoms",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-    },
     {
       field: "action",
       headerName: "Action",
@@ -101,6 +93,7 @@ const PatientsList = (props) => {
           rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
+          className="data-grid"
         />
       )}
     </div>

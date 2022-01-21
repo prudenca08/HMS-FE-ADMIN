@@ -31,6 +31,8 @@ const ManageDrSchedule = (props) => {
     setDataModal(null)
   }
 
+  
+
   useEffect(() => {
     if (props.docsche.length <= 0) {
       props.AllDocSchedule().then(() => {

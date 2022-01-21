@@ -7,6 +7,8 @@ const initialState = {
   patient: [],
   docsche: [],
   patsche: [],
+  doctor: [],
+  outpatient: [],
 };
 
 const listAction = [
@@ -83,7 +85,106 @@ const listAction = [
       };
     },
   },
+  {
+    //Doctor
+    type: "CHANGE_DOCTOR",
+    name: "doctor",
+    action: null,
+  },
 
+  //add doctor
+  {
+    type: "ADD_DOCTOR",
+    name: "doctor",
+    action: (state, actions) => {
+      let tmp = [...state.patient];
+      tmp.push(actions.value);
+      return {
+        ...state,
+        ["doctor"]: tmp,
+      };
+    },
+  },
+  //delete doctor
+  {
+    type: "DELETE_DOCTOR",
+    name: "doctor",
+    action: (state, actions) => {
+      let tmp = [...state.doctor];
+      let findIndex = tmp.findIndex((i) => {
+        return i.id === actions.value;
+      });
+      tmp.splice(findIndex, 1);
+      return {
+        ...state,
+        ["doctor"]: tmp,
+      };
+    },
+  },
+  //update doctor
+  {
+    type: "UPDATE_DOCTOR",
+    name: "doctor",
+    action: (state, actions) => {
+      let tmp = [...state.doctor];
+      let findIndex = tmp.findIndex((i) => {
+        return i.id === actions.value.id;
+      });
+      tmp[findIndex] = actions.value;
+      return {
+        ...state,
+        ["doctor"]: tmp,
+      };
+    },
+  },
+  //Outpatient
+  {
+    type: "CHANGE_OUTPATIENT",
+    name: "outpatient",
+    action: null,
+  },
+  {
+    type: "ADD_OUTPATIENT",
+    name: "outpatient",
+    action: (state, actions) => {
+      let tmp = [...state.outpatient];
+      tmp.push(actions.value);
+      return {
+        ...state,
+        ["outpatient"]: tmp,
+      };
+    },
+  },
+  {
+    type: "UPDATE_OUTPATIENT",
+    name: "outpatient",
+    action: (state, actions) => {
+      let tmp = [...state.outpatient];
+      let findIndex = tmp.findIndex((i) => {
+        return i.id === actions.value.id;
+      });
+      tmp[findIndex] = actions.value;
+      return {
+        ...state,
+        ["outpatient"]: tmp,
+      };
+    },
+  },
+  {
+    type: "DELETE_OUTPATIENT",
+    name: "outpatient",
+    action: (state, actions) => {
+      let tmp = [...state.outpatient];
+      let findIndex = tmp.findIndex((i) => {
+        return i.id === actions.value;
+      });
+      tmp.splice(findIndex, 1);
+      return {
+        ...state,
+        ["outpatient"]: tmp,
+      };
+    },
+  },
   {
     //doctor schedule
     type: "CHANGE_DOCSCHE",

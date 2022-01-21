@@ -65,7 +65,7 @@ export const actionCreatePatients = (data) => (dispatch) => {
         },
       })
       .then((result) => {
-        console.log(data); 
+        console.log(data);
         dispatch({ type: "ADD_PATIENT", value: data });
         resolve(result.status);
       })
@@ -76,11 +76,11 @@ export const actionCreatePatients = (data) => (dispatch) => {
   });
 };
 
-export const actionUpdatePatients = (data)=> (dispatch)=>{
+export const actionUpdatePatients = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
-      .put("/admins/update-patient/"+data.id, data, {
+      .put("/admins/update-patient/" + data.id, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -88,9 +88,9 @@ export const actionUpdatePatients = (data)=> (dispatch)=>{
         },
       })
       .then((result) => {
-        console.log(data); 
-        let _data = result.data.data
-        _data.id = _data["id:"]
+        console.log(data);
+        let _data = result.data.data;
+        _data.id = _data["id:"];
         dispatch({ type: "UPDATE_PATIENT", value: _data });
         resolve(result.status);
       })
@@ -99,13 +99,13 @@ export const actionUpdatePatients = (data)=> (dispatch)=>{
         console.log(data);
       });
   });
-}
+};
 
-export const actionDeletePatients = (data)=> (dispatch)=>{
+export const actionDeletePatients = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
-      .delete("/admins/delete-patient/"+data.id, {
+      .delete("/admins/delete-patient/" + data.id, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -113,7 +113,7 @@ export const actionDeletePatients = (data)=> (dispatch)=>{
         },
       })
       .then((result) => {
-        console.log(data); 
+        console.log(data);
         dispatch({ type: "DELETE_PATIENT", value: data.id });
         resolve(result.status);
       })
@@ -122,7 +122,241 @@ export const actionDeletePatients = (data)=> (dispatch)=>{
         console.log(data);
       });
   });
-}
+};
+
+export const actionGetAllDoctors = () => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get("/doctor", {})
+      .then((result) => {
+        let data = [...result.data.data];
+        data.forEach((item) => {
+          item.id = item["id:"];
+          item.day = item.doctor_session.day;
+          item.time = item.doctor_session.time;
+        });
+        console.log(data);
+        dispatch({ type: "CHANGE_DOCTOR", value: data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        dispatch({ type: "CHANGE_DOCTOR", value: [] });
+        reject(err.response);
+      });
+  });
+};
+
+export const actionCreateDoctor = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  let nData = { ...data };
+  nData.doctorsessionid = Number(nData.doctorsessionid);
+  return new Promise((resolve, reject) => {
+    console.log(data);
+    axios
+      .post("/doctor/register", nData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data);
+        let _data = result.data.data;
+        _data.id = _data["id:"];
+        _data.doctor_session = data.schedule;
+        _data.day = data.schedule.day;
+        _data.time = data.schedule.time;
+        dispatch({ type: "ADD_DOCTOR", value: _data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        reject(err.response);
+        console.log(data);
+      });
+  });
+};
+
+export const actionDeleteDoctor = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .delete("/admins/delete-doctor/" + data.id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data);
+        dispatch({ type: "DELETE_DOCTOR", value: data.id });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        reject(err.response);
+        console.log(data);
+      });
+  });
+};
+
+export const actionUpdateDoctor = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  let nData = { ...data };
+  nData.doctorsessionid = Number(nData.doctorsessionid);
+  return new Promise((resolve, reject) => {
+    axios
+      .put("/admins/update-doctor/" + data.id, nData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data);
+        let _data = data;
+        // _data.id = _data["id:"];
+        _data.doctor_session = data.schedule;
+        _data.day = data.schedule.day;
+        _data.time = data.schedule.time;
+        dispatch({ type: "UPDATE_DOCTOR", value: _data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        reject(err.response);
+        console.log(data);
+      });
+  });
+};
+
+export const actionGetAllOutpatients = () => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get("/patientses", {})
+      .then((result) => {
+        let data = [...result.data.data];
+        data.forEach((item) => {
+          item.patientName = item.patient.name;
+          item.nik = item.patient.nik;
+          item.day = item.patsche.day;
+          item.time = item.patsche.time;
+          item.nip = item.doctor.nip;
+          item.room = item.doctor.room;
+          item.doctor = item.doctor.name;
+        });
+        console.log(data);
+        dispatch({ type: "CHANGE_OUTPATIENT", value: data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        dispatch({ type: "CHANGE_OUTPATIENT", value: [] });
+        reject(err.response);
+      });
+  });
+};
+
+export const actionCreateOutpatient = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  let nData = { ...data };
+  nData.doctorid = Number(nData.doctorid);
+  nData.patientid = Number(nData.patientid);
+  nData.patientscheduleid = Number(nData.patientscheduleid);
+  console.log(nData);
+  return new Promise((resolve, reject) => {
+    axios
+      .post("/admins/create-patientses", nData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data);
+        let _data = result.data.data;
+        _data.patient = data.patient;
+        _data.patsche = data.schedule;      
+        _data.doctor = data.doctor.name;
+        _data.nik = data.patient.nik;
+        _data.nip = data.doctor.nip;
+        _data.patientName = data.patient.name;
+        _data.room = data.doctor.room;
+        _data.day = data.schedule.day;
+        _data.time = data.schedule.time;
+       
+       console.log(_data);
+        dispatch({ type: "ADD_OUTPATIENT", value: _data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err.response);
+        
+      });
+  });
+};
+
+export const actionDeleteOutpatient = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  return new Promise((resolve, reject) => {
+    axios
+      .delete("/admins/delete-patientses/" + data.id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data);
+        dispatch({ type: "DELETE_OUTPATIENT", value: data.id });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        reject(err.response);
+        console.log(data);
+      });
+  });
+};
+
+export const actionUpdateOutpatient = (data) => (dispatch) => {
+  let token = localStorage.getItem("token");
+  let nData = { ...data };
+  nData.doctorid = Number(nData.doctorid);
+  nData.patientid = Number(nData.patientid);
+  nData.patientscheduleid = Number(nData.patientscheduleid);
+  return new Promise((resolve, reject) => {
+    axios
+      .put("/admins/update-patientses/" + data.id, nData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+      })
+      .then((result) => {
+        console.log(data);
+        let _data = result.data.data;
+        _data.patient = data.patient;
+        _data.patsche = data.schedule;      
+        _data.doctor = data.doctor.name;
+        _data.nik = data.patient.nik;
+        _data.nip = data.doctor.nip;
+        _data.patientName = data.patient.name;
+        _data.room = data.doctor.room;
+        _data.day = data.schedule.day;
+        _data.time = data.schedule.time;
+       
+        dispatch({ type: "UPDATE_OUTPATIENT", value: _data });
+        resolve(result.status);
+      })
+      .catch((err) => {
+        reject(err.response);
+        console.log(data);
+      });
+  });
+};
 
 export const actionGetAllDoctorSchedule = () => (dispatch) => {
   return new Promise((resolve, reject) => {
@@ -144,7 +378,7 @@ export const actionGetAllDoctorSchedule = () => (dispatch) => {
   });
 };
 
-export const  actionCreateDocSchedule = (data) => (dispatch) => {
+export const actionCreateDocSchedule = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
@@ -156,9 +390,9 @@ export const  actionCreateDocSchedule = (data) => (dispatch) => {
         },
       })
       .then((result) => {
-        console.log(data); 
-        let _data = result.data.data
-        _data.id = _data["id:"]
+        console.log(data);
+        let _data = result.data.data;
+        _data.id = _data["id:"];
         dispatch({ type: "ADD_DOCSCHE", value: _data });
         resolve(result.status);
       })
@@ -169,11 +403,11 @@ export const  actionCreateDocSchedule = (data) => (dispatch) => {
   });
 };
 
-export const actionUpdateDocSchedule = (data)=> (dispatch)=>{
+export const actionUpdateDocSchedule = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
-      .put("/admins/update-docses/"+data.id, data, {
+      .put("/admins/update-docses/" + data.id, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -181,9 +415,9 @@ export const actionUpdateDocSchedule = (data)=> (dispatch)=>{
         },
       })
       .then((result) => {
-        console.log(data); 
-        let _data = result.data.data
-        _data.id = _data["id:"]
+        console.log(data);
+        let _data = result.data.data;
+        _data.id = _data["id:"];
         dispatch({ type: "UPDATE_DOCSCHE", value: _data });
         resolve(result.status);
       })
@@ -194,12 +428,12 @@ export const actionUpdateDocSchedule = (data)=> (dispatch)=>{
   });
 };
 
-export const actionDeleteDocSchedule = (data)=>(dispatch)=>{
+export const actionDeleteDocSchedule = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
-  console.log(token)
+  console.log(token);
   return new Promise((resolve, reject) => {
     axios
-      .delete("/admins/delete-docses/"+data.id, {
+      .delete("/admins/delete-docses/" + data.id, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -207,7 +441,7 @@ export const actionDeleteDocSchedule = (data)=>(dispatch)=>{
         },
       })
       .then((result) => {
-        console.log(data); 
+        console.log(data);
         dispatch({ type: "DELETE_DOCSCHE", value: data.id });
         resolve(result.status);
       })
@@ -216,8 +450,7 @@ export const actionDeleteDocSchedule = (data)=>(dispatch)=>{
         console.log(data);
       });
   });
-
-}
+};
 export const actionGetAllPatientSchedule = () => (dispatch) => {
   return new Promise((resolve, reject) => {
     axios
@@ -238,7 +471,7 @@ export const actionGetAllPatientSchedule = () => (dispatch) => {
   });
 };
 
-export const  actionCreatePatSchedule = (data) => (dispatch) => {
+export const actionCreatePatSchedule = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
@@ -250,9 +483,9 @@ export const  actionCreatePatSchedule = (data) => (dispatch) => {
         },
       })
       .then((result) => {
-        console.log(data); 
-        let _data = result.data.data
-        _data.id = _data["id:"]
+        console.log(data);
+        let _data = result.data.data;
+        _data.id = _data["id:"];
         dispatch({ type: "ADD_PATSCHE", value: _data });
         resolve(result.status);
       })
@@ -263,11 +496,11 @@ export const  actionCreatePatSchedule = (data) => (dispatch) => {
   });
 };
 
-export const actionUpdatePatSchedule = (data)=> (dispatch)=>{
+export const actionUpdatePatSchedule = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
   return new Promise((resolve, reject) => {
     axios
-      .put("/admins/update-patsche/"+data.id, data, {
+      .put("/admins/update-patsche/" + data.id, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -275,9 +508,9 @@ export const actionUpdatePatSchedule = (data)=> (dispatch)=>{
         },
       })
       .then((result) => {
-        console.log(data); 
-        let _data = result.data.data
-        _data.id = _data["id:"]
+        console.log(data);
+        let _data = result.data.data;
+        _data.id = _data["id:"];
         dispatch({ type: "UPDATE_PATSCHE", value: _data });
         resolve(result.status);
       })
@@ -288,12 +521,12 @@ export const actionUpdatePatSchedule = (data)=> (dispatch)=>{
   });
 };
 
-export const actionDeletePatSchedule = (data)=>(dispatch)=>{
+export const actionDeletePatSchedule = (data) => (dispatch) => {
   let token = localStorage.getItem("token");
-  console.log(token)
+  console.log(token);
   return new Promise((resolve, reject) => {
     axios
-      .delete("/admins/delete-patsche/"+data.id, {
+      .delete("/admins/delete-patsche/" + data.id, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
@@ -301,7 +534,7 @@ export const actionDeletePatSchedule = (data)=>(dispatch)=>{
         },
       })
       .then((result) => {
-        console.log(data); 
+        console.log(data);
         dispatch({ type: "DELETE_PATSCHE", value: data.id });
         resolve(result.status);
       })
@@ -310,6 +543,4 @@ export const actionDeletePatSchedule = (data)=>(dispatch)=>{
         console.log(data);
       });
   });
-
-}
-
+};

@@ -25,7 +25,6 @@ const Patient = (props) => {
     gender: "",
     phone: "",
     address: "",
-    symptoms: "",
   });
   const history = useHistory()
 
@@ -71,9 +70,8 @@ const Patient = (props) => {
 
   return (
     <div className="patient">
-      {params.patientId}
       <div className="patientTitleContainer">
-        <h3 className="patientTitle">Edit Patient</h3>
+        <h3 className="ListTitle">Edit Patient</h3>
       </div>
       <div className="patientContainer">
         <div className="patientShow">
@@ -103,10 +101,7 @@ const Patient = (props) => {
               <HomeIcon className="patientShowIcon" />
               <span className="patientShowInfoTitle">{patient.address}</span>
             </div>
-            <div className="patientShowInfo">
-              <LocalHospitalIcon className="patientShowIcon" />
-              <span className="patientShowInfoTitle">{patient.symptoms}</span>
-            </div>
+            
           </div>
         </div>
         <div className="patientUpdate">
@@ -171,7 +166,10 @@ const Patient = (props) => {
                   <label>Perempuan</label>
                 </div>
               </div>
-              <div className="patientUpdateItem">
+             
+            </div>
+            <div className="patientUpdateRight">
+            <div className="patientUpdateItem">
                 <label>Phone</label>
                 <input
                   type="text"
@@ -191,18 +189,7 @@ const Patient = (props) => {
                   className="patientUpdateInput"
                 />
               </div>
-            </div>
-            <div className="patientUpdateRight">
-              <div className="patientUpdateItem">
-                <label>Symptoms</label>
-                <textarea
-                  type="text"
-                  name="symptoms"
-                  value={field.symptoms}
-                  onChange={handleOnChange}
-                  className="patientUpdateInput"
-                />
-              </div>
+             
               <button disabled={isLoading} className="patientUpdateButton">
                 {isLoading ? <img src={Loading} alt="" width="40px" /> : "Save"}
               </button>

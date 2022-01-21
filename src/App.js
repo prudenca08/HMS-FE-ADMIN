@@ -17,6 +17,7 @@ import NewOutpatient from "./pages/newOutpatient/NewOutpatient";
 import Outpatient from "./pages/outpatient/Outpatient";
 import FormLogin from "./pages/login/Form";
 import PrivateRoute from "./components/PrivateRoute";
+import Faq from "./pages/faq/Faq";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 console.log(inactive);
               }}
             />
+
             <Switch>
               <PrivateRoute exact path="/">
                 <Dashboard />
@@ -69,6 +71,9 @@ function App() {
               </PrivateRoute>
               <PrivateRoute path="/newOutpatient">
                 <NewOutpatient />
+              </PrivateRoute>
+              <PrivateRoute path="/faq">
+                <Faq />
               </PrivateRoute>
             </Switch>
           </div>
