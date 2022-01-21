@@ -64,10 +64,8 @@ const ManagePatientSchedule = (props) => {
   ];
 
   return (
-    <div className="drscheduleList">
-      <div className="doctorscheduleListTitleContainer">
-        <h3 className="ListTitle">Patient Schedule</h3>
-      </div>
+    <div className="drscheduleList p-3">
+      <h1>Patient Schedule</h1>
       <div className="doctorscheduleAdd">
         <button
           className="doctorscheduleAddButton"
@@ -84,18 +82,19 @@ const ManagePatientSchedule = (props) => {
           <NewPatientSchedule closeFunction={handleClose} data={dataModal} />
         </div>
       ) : null}
-      {props.patsche.length !== 0 && (
-        <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-        disableSelectionOnClick
-        className="drscheduleTable"
-      />
-
-      )}
+      <div className="grid-holder">
+        {props.patsche.length !== 0 && (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            autoHeight={true}
+            // disableSelectionOnClick
+          />
+        )}
+      </div>
       
     </div>
   );

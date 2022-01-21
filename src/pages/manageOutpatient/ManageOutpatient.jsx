@@ -32,7 +32,6 @@ const ManageOutpatient = (props) => {
 
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
     { field: "nik", headerName: "NIK", width: 120 },
     { field: "patientName", headerName: "Patient Name", width: 180 },
     { field: "day", headerName: "Day", width: 100 },
@@ -66,25 +65,26 @@ const ManageOutpatient = (props) => {
   ];
 
   return (
-    <div className="outpatientList">
-      <div className="outpatientListTitleContainer">
-        <h3 className="ListTitle">Outpatient Session</h3>
-      </div>
-      <div className="outpatientAdd">
-      <Link to="/newOutpatient">
-          <button className="outpatientAddButton">+Add New</button>
+    <div className="outpatientList p-3">
+      <h1>Outpatient Session</h1>
+      <div className="d-flex my-3">
+      <Link to="/newOutpatient" className="ms-auto">
+          <button className="btn-add-custom">+Add New</button>
         </Link>
       </div>
-      {props.outpatient.length !== 0 && (
-        <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
-      )}
+      <div className="grid-holder">
+        {props.outpatient.length !== 0 && (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            autoHeight={true}
+            // disableSelectionOnClick
+          />
+        )}
+      </div>
     </div>
   );
 }

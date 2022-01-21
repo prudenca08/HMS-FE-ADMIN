@@ -6,7 +6,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import { drscheduleRows } from "../../dummyData";
 import NewDrSchedule from "../newDrSchedule/NewDrSchedule";
 import { connect } from "react-redux";
-import { actionDeleteDocSchedule, actionGetAllDoctorSchedule } from "../../config/redux/action";
+import {
+  actionDeleteDocSchedule,
+  actionGetAllDoctorSchedule,
+} from "../../config/redux/action";
 
 const ManageDrSchedule = (props) => {
   const [data, setData] = useState(drscheduleRows);
@@ -14,24 +17,19 @@ const ManageDrSchedule = (props) => {
   const [dataModal, setDataModal] = useState(null);
 
   const handleDelete = (id) => {
-    props.deleteDocSchedule({id:id})
-    .then(()=>{
-
-    })
+    props.deleteDocSchedule({ id: id }).then(() => {});
   };
 
-  const handleOnclickEdit = (event,  item) => {
+  const handleOnclickEdit = (event, item) => {
     console.log("id =>" + item.id);
     setModal(true);
     setDataModal(item);
   };
 
-  const handleClose = (event) =>{
-    setModal(false)
-    setDataModal(null)
-  }
-
-  
+  const handleClose = (event) => {
+    setModal(false);
+    setDataModal(null);
+  };
 
   useEffect(() => {
     if (props.docsche.length <= 0) {
@@ -69,14 +67,14 @@ const ManageDrSchedule = (props) => {
   ];
 
   return (
-    <div className="drscheduleList">
-      <div className="doctorscheduleListTitleContainer">
-        <h3 className="ListTitle">Doctor Schedule</h3>
-      </div>
+    <div className="drscheduleList p-3">
+      <h1>Doctor Schedule</h1>
       <div className="doctorscheduleAdd">
         <button
           className="doctorscheduleAddButton"
-          onClick={() => {setModal(true); setDataModal(null)
+          onClick={() => {
+            setModal(true);
+            setDataModal(null);
           }}
         >
           +Add New
@@ -84,23 +82,22 @@ const ManageDrSchedule = (props) => {
       </div>
       {modal ? (
         <div className="manage-modal shadow" id="manage-modal">
-          <NewDrSchedule
-           closeFunction = {handleClose}
-            data={dataModal}
-          />
+          <NewDrSchedule closeFunction={handleClose} data={dataModal} />
         </div>
       ) : null}
-      {props.docsche.length !== 0 && (
-        <DataGrid
-          rows={data}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          checkboxSelection
-          disableSelectionOnClick
-          className="drscheduleTable"
-        />
-      )}
+      <div className="grid-holder">
+        {props.docsche.length !== 0 && (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            autoHeight={true}
+            // disableSelectionOnClick
+          />
+        )}
+      </div>
     </div>
   );
 };
@@ -109,7 +106,7 @@ const reduxState = (state) => ({
 });
 const reduxDispatch = (dispatch) => ({
   AllDocSchedule: (data) => dispatch(actionGetAllDoctorSchedule(data)),
-  deleteDocSchedule : (data) => dispatch(actionDeleteDocSchedule(data)),
+  deleteDocSchedule: (data) => dispatch(actionDeleteDocSchedule(data)),
 });
 
 export default connect(reduxState, reduxDispatch)(ManageDrSchedule);

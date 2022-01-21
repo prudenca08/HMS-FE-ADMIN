@@ -5,36 +5,33 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import { doctorRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import {connect} from "react-redux";
-import { actionDeleteDoctor, actionGetAllDoctors } from "../../config/redux/action";
-
+import { connect } from "react-redux";
+import {
+  actionDeleteDoctor,
+  actionGetAllDoctors,
+} from "../../config/redux/action";
 
 const DoctorsList = (props) => {
   const [data, setData] = useState(doctorRows);
 
   const handleDelete = (id) => {
-    props.deleteDoctor({id:id})
-    .then(()=>{
-      
-    })
+    props.deleteDoctor({ id: id }).then(() => {});
   };
 
   useEffect(() => {
     if (props.doctor.length <= 0) {
       props.AllDoctor().then(() => {
-       
         console.log(props.doctor);
       });
-    }else{
-      setData(props.doctor)
+    } else {
+      setData(props.doctor);
     }
-
   }, [props]);
 
   const columns = [
     { field: "name", headerName: "Name", width: 180 },
-    {field : "day", headerName : "Day", width: 120},
-    {field : "time", headerName : "Time", width :120},
+    { field: "day", headerName: "Day", width: 120 },
+    { field: "time", headerName: "Time", width: 120 },
     { field: "nip", headerName: "NIP", width: 130 },
     {
       field: "phone_number",
@@ -89,35 +86,35 @@ const DoctorsList = (props) => {
   ];
 
   return (
-    <div className="doctorsList">
-      <div className="doctorListTitleContainer">
-        <h3 className="ListTitle">Doctors</h3>
-      </div>
-      <div className="doctorAdd">
-        <Link to="/newDoctor">
-          <button className="doctorAddButton">+Add New</button>
+    <div className="doctorsList p-3">
+      <h1>Doctors</h1>
+     <div className="d-flex my-3">
+        <Link to="/newDoctor" className="ms-auto">
+          <button className="btn-add-custom">+Add New</button>
         </Link>
       </div>
-      {props.doctor.length !== 0 && (
-        <DataGrid
-          rows={data}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
-          checkboxSelection
-          disableSelectionOnClick
-        />
-      )}
+      <div className="grid-holder">
+        {props.doctor.length !== 0 && (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            autoHeight={true}
+            // disableSelectionOnClick
+          />
+        )}
+      </div>
     </div>
   );
-}
+};
 const reduxState = (state) => ({
   doctor: state.doctor,
 });
 const reduxDispatch = (dispatch) => ({
   AllDoctor: (data) => dispatch(actionGetAllDoctors(data)),
-  deleteDoctor : (data) => dispatch(actionDeleteDoctor(data)),
-
+  deleteDoctor: (data) => dispatch(actionDeleteDoctor(data)),
 });
 
-export default connect(reduxState, reduxDispatch)(DoctorsList)
+export default connect(reduxState, reduxDispatch)(DoctorsList);

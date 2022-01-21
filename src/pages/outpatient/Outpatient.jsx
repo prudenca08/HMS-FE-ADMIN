@@ -52,8 +52,6 @@ const Outpatient = (props) => {
   const [data, setData] = useState([]);
   const history = useHistory();
 
-
-
   const [outpatient, setOutpatient] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
