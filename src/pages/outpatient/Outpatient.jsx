@@ -32,87 +32,69 @@ const Outpatient = (props) => {
     detailrecipe: "",
     status: "",
     date: "",
+    id: 0,
   });
-
-  const [autofill, setAutofill] = useState({
-    patientName: "",
-    doctor: "",
-    room: "",
-  });
-
-  const [keySearch, setKeySearch] = useState({
-    nik: "",
-    nip: "",
-  });
+  const params = useParams();
+  const [outPatient, setOutPatient] = useState({});
+  const id = Number(params.outpatientId);
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [patient, setPatient] = useState([]);
   const [doctor, setDoctor] = useState([]);
   const [patsche, setPatsche] = useState([]);
 
-  const [data, setData] = useState([]);
-  const history = useHistory();
-
-  const [outpatient, setOutpatient] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (props.doctor.length <= 0) {
-      props.AllDoctor().then(() => {});
-    } else {
-      setDoctor(props.doctor);
-    }
-    if (props.patient.length <= 0) {
-      props.AllPatients().then(() => {});
-    } else {
-      setPatient(props.patient);
-    }
-    if (props.patsche.length <= 0) {
-      props.AllPatSchedule().then(() => {});
-    } else {
-      setPatsche(props.patsche);
-    }
-  }, [props]);
-
-  const handleChangeDate = (date) => {
-    setField({ ...field, ["date"]: date });
-  };
-
-  useEffect(() => {
-    if (props.outpatient.length !== 0 && outpatient.name === undefined) {
-      setOutpatient(
-        props.outpatient.find((i) => i.id === Number(params.outpatientId))
-      );
-    } else if (outpatient.name !== undefined) {
-      let tmp = {};
-      Object.keys(field).forEach((k) => {
-        tmp[k] = outpatient[k];
-      });
-      setField(tmp);
-    }
-    if (props.doctor.length <= 0) {
-      props.AllDoctor().then(() => {});
-    } else {
-      setDoctor(props.doctor);
-    }
-    if (props.patient.length <= 0) {
-      props.AllPatients().then(() => {});
-    } else {
-      setPatient(props.patient);
-    }
-    if (props.patsche.length <= 0) {
-      props.AllPatSchedule().then(() => {});
-    } else {
-      setPatsche(props.patsche);
-    }
-  }, [outpatient, props]);
-
-  const params = useParams();
-
+  const [detail, setDetail] = useState([
+    {
+      icon: PermIdentityIcon,
+      value: "Empty",
+      name: "patientName",
+    },
+    {
+      icon: ConfirmationNumberIcon,
+      value: "",
+      name: "day",
+    },
+    {
+      icon: CalendarTodayIcon,
+      value: "",
+      name: "date",
+    },
+    {
+      icon: AccessAlarmIcon,
+      value: "",
+      name: "time",
+    },
+    {
+      icon: AssignmentIndIcon,
+      value: "",
+      name: "doctor",
+    },
+    {
+      icon: MeetingRoomIcon,
+      value: "room",
+      name: "room",
+    },
+    {
+      icon: FindInPageIcon,
+      value: "",
+      name: "symptoms",
+    },
+    {
+      icon: FilterFramesIcon,
+      value: "",
+      name: "title",
+    },
+    {
+      icon: AssignmentTurnedInIcon,
+      value: "",
+      name: "status",
+    },
+  ]);
   const handleOnChange = (event) => {
     let { name, value } = event.currentTarget;
     setField({ ...field, [name]: value });
   };
-
   const handleOnchangeNik = (event) => {
     let { name, value } = event.currentTarget;
     setKeySearch({ ...keySearch, ["nik"]: value });
@@ -123,6 +105,34 @@ const Outpatient = (props) => {
       setAutofill({ ...autofill, patientName: found.name });
       setField({ ...field, patientid: found.id });
     }
+  };
+
+  const handleChangeDate = (date) => {
+    setField({ ...field, date: date });
+  };
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    field.patient = patient.find((i) => {
+      return i.id === Number(field.patientid);
+    });
+    field.doctor = doctor.find((i) => {
+      return i.id === Number(field.doctorid);
+    });
+    field.schedule = patsche.find((i) => {
+      return i.id === Number(field.patientscheduleid);
+    });
+    console.log(field);
+    props
+      .createOutpatient(field)
+      .then((res) => {
+        console.log(res);
+        history.push("/manage/outpatient");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
   };
 
   const handleOnchangeNip = (event) => {
@@ -136,84 +146,101 @@ const Outpatient = (props) => {
       setField({ ...field, doctorid: found.id });
     }
   };
+  const [autofill, setAutofill] = useState({
+    patientName: "",
+    doctor: "",
+    room: "",
+  });
 
-  const handleOnSubmit = (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    field.patient = patient.find((i) => {
-      return i.id === Number(field.patientid);
-    });
-    field.doctor = doctor.find((i) => {
-      return i.id === Number(field.doctorid);
-    });
-    field.schedule = patsche.find((i) => {
-      return i.id === Number(field.patientscheduleid);
-    });
+  const [keySearch, setKeySearch] = useState({
+    nik: "",
+    nip: "",
+  });
 
-    props
-      .createOutpatient(field)
-      .then((res) => {
-        history.push("/manage/outpatient");
-      })
-      .catch((err) => {
-        setIsLoading(false);
-      });
-  };
+  useEffect(
+    (before) => {
+      if (props.doctor.length <= 0) {
+        props.AllDoctor().then(() => {});
+      } else {
+        let foundDoctor = props.doctor.find((i) => {
+          return i.nip === outPatient.nip;
+        });
+        console.log(foundDoctor);
+        if (foundDoctor) {
+          console.log(foundDoctor);
+          setAutofill({
+            ...autofill,
+            doctor: foundDoctor.name,
+            room: foundDoctor.room,
+          });
+        }
+        setDoctor(props.doctor);
+      }
+      if (props.patient.length <= 0) {
+        props.AllPatients().then(() => {});
+      } else {
+        let foundPatient = props.patient.find((i) => {
+          return i.nik === outPatient.nik;
+        });
+        if (foundPatient) {
+          setAutofill({ ...autofill, patientName: foundPatient.name });
+          setField({ ...field, patientid: foundPatient.id });
+        }
+        setPatient(props.patient);
+      }
+      if (props.patsche.length <= 0) {
+        props.AllPatSchedule().then(() => {});
+      } else {
+        setPatsche(props.patsche);
+      }
 
+      if (
+        props.outpatient.length !== 0 &&
+        outPatient.patientName === undefined
+      ) {
+        let found = props.outpatient.find((i) => i.id === id);
+        let temp = [...detail];
+        temp.forEach((i) => {
+          i.value = found[i.name];
+        });
+
+        let tempField = { ...field };
+        let pass = ["doctorid", "patientid"];
+        Object.keys(tempField).forEach((k) => {
+          if (!pass.includes(k)) {
+            tempField[k] = found[k];
+          }
+          if (k === "patientscheduleid") {
+            tempField[k] = found.patsche["id:"];
+          }
+        });
+        let tempKeySearch = { ...keySearch };
+
+        tempKeySearch.nik = found.nik;
+        tempKeySearch.nip = found.nip;
+        console.log(tempField);
+        console.log(found);
+        setKeySearch(tempKeySearch);
+        setField(tempField);
+        setOutPatient(found);
+        setDetail(temp);
+      }
+    },
+    [props, patient, patsche, patient]
+  );
   return (
     <div className="outpatient">
+      {field.example + " " + field.patientid}
       <div className="outpatientContainer">
         <div className="outpatientShow">
           <div className="outpatientShowDetail">
             <span className="outpatientShowTitle">Outpatient Details</span>
-            <div className="outpatientShowInfo">
-              <PermIdentityIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">Margareth Ellie</span>
-            </div>
-            <div className="outpatientShowInfo">
-              <ConfirmationNumberIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">Monday</span>
-            </div>
-            <div className="outpatientShowInfo">
-              <CalendarTodayIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">29/12/2021</span>
-            </div>
-            <div className="outpatientShowInfo">
-              <AccessAlarmIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">10.00 - 10.50</span>
-            </div>
-            <div className="outpatientShowInfo">
-              <AssignmentIndIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">
-                dr.Thomas Harianja
-              </span>
-            </div>
-            <div className="outpatientShowInfo">
-              <MeetingRoomIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">A27</span>
-            </div>
-            <div className="outpatientShowInfo">
-              <LocalHospitalIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">
-                Gatal-gatal, sesak nafas, demam, batuk, pilek, mata berair,
-                lorem ipsum dolor sit amet narmis
-              </span>
-            </div>
-            <div className="outpatientShowInfo">
-              <FindInPageIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">Asam Lambung</span>
-            </div>
-            <div className="outpatientShowInfo">
-              <FilterFramesIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">
-                Antasid Menetralkan efek asam lambung. 2 kali sehari setelah
-                makan
-              </span>
-            </div>
-            <div className="outpatientShowInfo">
-              <AssignmentTurnedInIcon className="outpatientShowIcon" />
-              <span className="outpatientShowInfoTitle">On Progress</span>
-            </div>
+            {detail.map((item, index) => (
+              <div key={index} className="outpatientShowInfo">
+                <item.icon className="outpatientShowIcon" />
+                <span className="outpatientShowInfoTitle">{item.value}</span>
+              </div>
+            ))}
           </div>
         </div>
         <div className="outpatientUpdate">
@@ -240,15 +267,15 @@ const Outpatient = (props) => {
                   className="outpatientUpdateInput"
                 />
               </div>
-              <div className="outpatientUpdateItem">
+              <div className="newOutpatientItem">
                 <label>Schedule</label>
                 <select
-                  className="outpatientUpdateInput"
+                  className="form-control"
                   value={field.patientscheduleid}
                   onChange={handleOnChange}
                   name="patientscheduleid"
                 >
-                  <option value={0} selected disabled>
+                  <option value={0} disabled>
                     Pilih Jadwal
                   </option>
                   {patsche.map((item) => (
@@ -258,12 +285,12 @@ const Outpatient = (props) => {
                   ))}
                 </select>
               </div>
-              <div className="outpatientUpdateItem">
+              <div className="newOutpatientItem">
                 <label>Date</label>
                 <DatePicker
-                  selected={field.date}
+                  selected={new Date()}
                   onChange={handleChangeDate}
-                  value={field.date}
+                  // value={field.date}
                   dateFormat="dd/MM/yyyy"
                   filterDate={(date) =>
                     date.getDay() !== 6 && date.getDay() !== 0
@@ -272,95 +299,39 @@ const Outpatient = (props) => {
                   showYearDropdown
                   scrollableMonthYearDropdown
                   name="date"
-                  className="outpatientUpdateInput"
+                  className="form-control"
                 ></DatePicker>
               </div>
-              <div className="outpatientUpdateItem">
+              <div className="newOutpatientItem">
                 <label> NIP</label>
                 <input
                   type="text"
                   value={keySearch.nip}
                   onChange={handleOnchangeNip}
-                  className="outpatientUpdateInput"
+                  className="form-control"
                   placeholder="Enter NIP"
                 />
               </div>
-              <div className="outpatientUpdateItem">
+              <div className="newOutpatientItem">
                 <label>Doctor</label>
                 <input
                   type="text"
                   value={autofill.doctor}
                   disabled
-                  className="outpatientUpdateInput"
+                  className="form-control"
                   placeholder="Enter Doctor Name"
                 />
               </div>
-              <div className="outpatientUpdateItem">
-                <label>Room</label>
+              <div className="newOutpatientItem">
+                <label>Rooms</label>
                 <input
                   type="text"
-                  className="outpatientUpdateInput"
+                  className="form-control"
                   value={autofill.room}
                   disabled
                   placeholder="Enter Rooms"
                 />
               </div>
-            </div>
-            <div className="outpatientUpdateRight">
-              <div className="outpatientUpdateItem">
-                <label>Symptoms</label>
-                <textarea
-                  type="text"
-                  name="symptoms"
-                  value={field.symptoms}
-                  onChange={handleOnChange}
-                  placeholder="Enter Detail Symptoms"
-                  className="outpatientUpdateInput"
-                />
-              </div>
-              <div className="outpatientUpdateItem">
-                <label>Diagnosis</label>
-                <textarea
-                  type="text"
-                  value={field.title}
-                  name="title"
-                  onChange={handleOnChange}
-                  className="outpatientUpdateInput"
-                  placeholder="Enter Diagnosis"
-                />
-              </div>
-              <div className="outpatientUpdateItem">
-                <label>Medicine Recipe</label>
-                <textarea
-                  type="text"
-                  name="detailrecipe"
-                  value={field.detailrecipe}
-                  onChange={handleOnChange}
-                  placeholder="Enter Recipe"
-                  className="outpatientUpdateInput"
-                />
-              </div>
-              <div className="outpatientUpdateItem">
-                <label>Status</label>
-                <div className="newDoctorStatus">
-                  <select
-                    className="form-control"
-                    value={field.status}
-                    name="status"
-                    onChange={handleOnChange}
-                  >
-                    <option selected disabled value={""}>
-                      Pilih Status
-                    </option>
-                    <option value="waiting">Waiting</option>
-                    <option value="onprogress">On Progress</option>
-                    <option value="done">Done</option>
-                  </select>
-                </div>
-              </div>
-              <button className="outpatientUpdateButton" disabled={isLoading}>
-                {isLoading ? <img src={Loading} alt="" width="40px" /> : "Save"}
-              </button>
             </div>
           </form>
         </div>

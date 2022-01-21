@@ -26,55 +26,53 @@ function App() {
         <Route exact path="/login">
           <FormLogin />
         </Route>
-        <div className="containers">
-          <NavbarTop />
-          <Sidebar
-            onCollapse={(inactive) => {
-              console.log(inactive);
-            }}
-          />
-          <Switch>
-            <PrivateRoute exact path="/">
-              <Dashboard />
-            </PrivateRoute>
-            <PrivateRoute path="/patients">
-              <PatientsList />
-            </PrivateRoute>
-            <PrivateRoute path="/patient/:patientId">
-              <Patient />
-            </PrivateRoute>
-            <PrivateRoute path="/newPatient">
-              <NewPatient />
-            </PrivateRoute>
-            <PrivateRoute path="/doctors">
-              <DoctorsList />
-            </PrivateRoute>
-            <PrivateRoute path="/doctor/:doctorId">
-              <Doctor />
-            </PrivateRoute>
-            <PrivateRoute path="/newDoctor">
-              <NewDoctor />
-            </PrivateRoute>
-            <PrivateRoute path="/manage/drschedule">
-              <ManageDrSchedule />
-            </PrivateRoute>
-            <PrivateRoute path="/manage/patientschedule">
-              <ManagePatientSchedule />
-            </PrivateRoute>
-            <PrivateRoute path="/manage/outpatient">
-              <ManageOutpatient />
-            </PrivateRoute>
-            <PrivateRoute path="/outpatient/:outpatientId">
-              <Outpatient />
-            </PrivateRoute>
-            <PrivateRoute path="/newOutpatient">
-              <NewOutpatient />
-            </PrivateRoute>
-            <PrivateRoute path="/faq">
-              <Faq />
-            </PrivateRoute>
-          </Switch>
-        </div>
+        <>
+          <div className="containers">
+            <NavbarTop />
+            <Sidebar onCollapse={(inactive) => {}} />
+            <Switch>
+              <PrivateRoute exact path="/">
+                <Dashboard />
+              </PrivateRoute>
+              <PrivateRoute path="/patients">
+                <PatientsList />
+              </PrivateRoute>
+              <PrivateRoute path="/patient/:patientId">
+                <Patient />
+              </PrivateRoute>
+              <PrivateRoute path="/newPatient">
+                <NewPatient />
+              </PrivateRoute>
+              <PrivateRoute path="/doctors">
+                <DoctorsList />
+              </PrivateRoute>
+              <PrivateRoute path="/doctor/:doctorId">
+                <Doctor />
+              </PrivateRoute>
+              <PrivateRoute path="/newDoctor">
+                <NewDoctor />
+              </PrivateRoute>
+              <PrivateRoute path="/manage/drschedule">
+                <ManageDrSchedule />
+              </PrivateRoute>
+              <PrivateRoute path="/manage/patientschedule">
+                <ManagePatientSchedule />
+              </PrivateRoute>
+              <PrivateRoute path="/manage/outpatient">
+                <ManageOutpatient />
+              </PrivateRoute>
+              <PrivateRoute path="/outpatient/:outpatientId">
+                <Outpatient />
+              </PrivateRoute>
+              <PrivateRoute path="/newOutpatient">
+                <NewOutpatient />
+              </PrivateRoute>
+              <PrivateRoute path="/faq">
+                <Faq />
+              </PrivateRoute>
+            </Switch>
+          </div>
+        </>
       </Switch>
     </Router>
   );

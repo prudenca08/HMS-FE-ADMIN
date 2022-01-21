@@ -2,14 +2,3 @@
     flex: 4;
 } */
 
-.btn-add-custom{
-    margin-top: 10px;
-    border-radius: 10px;
-    border: none;
-    width: 100px;
-    padding: 7px 10px;
-    cursor: pointer;
-    background-color: #8282F3;
-    color: white;
-    font-weight: 400;
-}
