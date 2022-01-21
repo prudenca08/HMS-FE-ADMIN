@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarTop from "./components/NavbarTop/NavbarTop";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Dashboard from "./pages/dashboard/dashboard";
 import PatientsList from "./pages/patientsList/PatientsList";
 import Patient from "./pages/patient/Patient";
 import NewPatient from "./pages/newPatient/NewPatient";

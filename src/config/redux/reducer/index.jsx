@@ -66,7 +66,7 @@ const listAction = [
       tmp[findIndex] = actions.value;
       return {
         ...state,
-        ["patient"]: tmp,
+        patient: tmp,
       };
     },
   },
