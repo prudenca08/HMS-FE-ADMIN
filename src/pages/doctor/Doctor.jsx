@@ -34,6 +34,11 @@ const Doctor = (props) => {
 
   const history = useHistory();
 
+  const handleOnClickRedirect = (event) => {
+    let target = event.target.getAttribute("to");
+    history.push(target);
+  };
+
   const [doctor, setDoctor] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -251,6 +256,13 @@ const Doctor = (props) => {
               </button>
             </div>
           </form>
+          <button
+            className="passwordChangeButton"
+            onClick={handleOnClickRedirect}
+            to="/updatePassword"
+          >
+            Change Password
+          </button>
         </div>
       </div>
     </div>

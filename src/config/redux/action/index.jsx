@@ -275,13 +275,14 @@ export const actionCreateOutpatient = (data) => (dispatch) => {
       .then((result) => {
         console.log(data);
         let _data = result.data.data;
-        _data.patient = data.patient;
-        _data.patsche = data.schedule;      
-        _data.doctor = data.doctor.name;
+        _data.patient = data.patient;     
         _data.nik = data.patient.nik;
+        _data.doctor = data.doctor;
+        _data.doctor = data.doctor.name;
         _data.nip = data.doctor.nip;
-        _data.patientName = data.patient.name;
         _data.room = data.doctor.room;
+        _data.patientName = data.patient.name;
+        _data.patsche = data.schedule; 
         _data.day = data.schedule.day;
         _data.time = data.schedule.time;
        
@@ -338,13 +339,14 @@ export const actionUpdateOutpatient = (data) => (dispatch) => {
       .then((result) => {
         console.log(data);
         let _data = result.data.data;
-        _data.patient = data.patient;
-        _data.patsche = data.schedule;      
-        _data.doctor = data.doctor.name;
+        _data.patient = data.patient;     
         _data.nik = data.patient.nik;
+        _data.doctor = data.doctor;
+        _data.doctor = data.doctor.name;
         _data.nip = data.doctor.nip;
-        _data.patientName = data.patient.name;
         _data.room = data.doctor.room;
+        _data.patientName = data.patient.name;
+        _data.patsche = data.schedule; 
         _data.day = data.schedule.day;
         _data.time = data.schedule.time;
        
