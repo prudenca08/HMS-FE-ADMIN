@@ -32,7 +32,7 @@ const Outpatient = (props) => {
     detailrecipe: "",
     status: "",
     date: "",
-    id: 0,
+    id: "",
   });
   const params = useParams();
   const [outPatient, setOutPatient] = useState({});
@@ -68,7 +68,7 @@ const Outpatient = (props) => {
     {
       icon: AssignmentIndIcon,
       value: "",
-      name: "doctor",
+      name: "doctor_name",
     },
     {
       icon: MeetingRoomIcon,
@@ -124,7 +124,7 @@ const Outpatient = (props) => {
     });
     console.log(field);
     props
-      .createOutpatient(field)
+      .updateOutpatient(field)
       .then((res) => {
         console.log(res);
         history.push("/manage/outpatient");
@@ -135,26 +135,23 @@ const Outpatient = (props) => {
       });
   };
 
-  const handleOnchangeNip = (event) => {
+  const handleOnchangeDoctor = (event) => {
     let { name, value } = event.currentTarget;
-    setKeySearch({ ...keySearch, ["nip"]: value });
     let found = doctor.find((i) => {
-      return i.nip === value;
+      return i.id === Number(value);
     });
     if (found) {
-      setAutofill({ ...autofill, doctor: found.name, room: found.room });
-      setField({ ...field, doctorid: found.id });
+      setAutofill({ ...autofill, room: found.room });
+      setField({ ...field, doctorid: Number(value) });
     }
   };
   const [autofill, setAutofill] = useState({
     patientName: "",
-    doctor: "",
     room: "",
   });
 
   const [keySearch, setKeySearch] = useState({
     nik: "",
-    nip: "",
   });
 
   useEffect(
@@ -162,30 +159,11 @@ const Outpatient = (props) => {
       if (props.doctor.length <= 0) {
         props.AllDoctor().then(() => {});
       } else {
-        let foundDoctor = props.doctor.find((i) => {
-          return i.nip === outPatient.nip;
-        });
-        console.log(foundDoctor);
-        if (foundDoctor) {
-          console.log(foundDoctor);
-          setAutofill({
-            ...autofill,
-            doctor: foundDoctor.name,
-            room: foundDoctor.room,
-          });
-        }
         setDoctor(props.doctor);
       }
       if (props.patient.length <= 0) {
         props.AllPatients().then(() => {});
       } else {
-        let foundPatient = props.patient.find((i) => {
-          return i.nik === outPatient.nik;
-        });
-        if (foundPatient) {
-          setAutofill({ ...autofill, patientName: foundPatient.name });
-          setField({ ...field, patientid: foundPatient.id });
-        }
         setPatient(props.patient);
       }
       if (props.patsche.length <= 0) {
@@ -205,29 +183,39 @@ const Outpatient = (props) => {
         });
 
         let tempField = { ...field };
-        let pass = ["doctorid", "patientid"];
         Object.keys(tempField).forEach((k) => {
-          if (!pass.includes(k)) {
-            tempField[k] = found[k];
-          }
           if (k === "patientscheduleid") {
             tempField[k] = found.patsche["id:"];
+          } else if (k === "patientid") {
+            tempField[k] = found.patient["id:"];
+          } else if (k === "doctorid") {
+            tempField[k] = found.doctor["id:"];
+          } else {
+            tempField[k] = found[k];
           }
         });
         let tempKeySearch = { ...keySearch };
 
-        tempKeySearch.nik = found.nik;
-        tempKeySearch.nip = found.nip;
+        tempKeySearch.nik = found.patient.nik;
+
+        let _autoComplete = { ...autofill };
+        _autoComplete.patientName = found.patient.name;
+        _autoComplete.room = found.doctor.room;
         console.log(tempField);
         console.log(found);
+        setAutofill({ ..._autoComplete });
         setKeySearch(tempKeySearch);
-        setField(tempField);
+        setField({ ...tempField });
         setOutPatient(found);
         setDetail(temp);
       }
     },
     [props, patient, patsche, patient]
   );
+  const getDate = (strDate) => {
+    let split = strDate.split("/");
+    return new Date(Number(split[0]), Number(split[1]), Number(split[2]));
+  };
   return (
     <div className="outpatient">
       {field.example + " " + field.patientid}
@@ -245,94 +233,146 @@ const Outpatient = (props) => {
         </div>
         <div className="outpatientUpdate">
           <span className="outpatientUpdateTitle">Edit</span>
-          <form className="outpatientUpdateForm" onSubmit={handleOnSubmit}>
-            <div className="outpatientUpdateLeft">
-              <div className="outpatientUpdateItem">
-                <label> NIK</label>
-                <input
-                  type="text"
-                  value={keySearch.nik}
-                  className="outpatientUpdateInput"
-                  placeholder="Enter Full NIK"
-                  onChange={handleOnchangeNik}
-                />
-              </div>
-              <div className="outpatientUpdateItem">
-                <label>Patient Name</label>
-                <input
-                  type="text"
-                  value={autofill.patientName}
-                  disabled
-                  placeholder="Enter Name"
-                  className="outpatientUpdateInput"
-                />
-              </div>
-              <div className="newOutpatientItem">
-                <label>Schedule</label>
-                <select
-                  className="form-control"
-                  value={field.patientscheduleid}
-                  onChange={handleOnChange}
-                  name="patientscheduleid"
-                >
-                  <option value={0} disabled>
-                    Pilih Jadwal
+          <form className="newOutpatientForm" onSubmit={handleOnSubmit}>
+            <div className="newOutpatientItem">
+              <label> NIK</label>
+              <input
+                type="text"
+                value={keySearch.nik}
+                className="form-control"
+                placeholder="Enter Full NIK"
+                onChange={handleOnchangeNik}
+              />
+            </div>
+            <div className="newOutpatientItem">
+              <label> Patient Name</label>
+              <input
+                type="text"
+                value={autofill.patientName}
+                disabled
+                className="form-control"
+                placeholder="Enter Full Name"
+              />
+            </div>
+            <div className="newOutpatientItem">
+              <label>Schedule</label>
+              <select
+                className="form-control"
+                value={field.patientscheduleid}
+                onChange={handleOnChange}
+                name="patientscheduleid"
+              >
+                <option value={0} selected disabled>
+                  Pilih Jadwal
+                </option>
+                {patsche.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item.day + " , " + item.time}
                   </option>
-                  {patsche.map((item) => (
-                    <option value={item.id} key={item.id}>
-                      {item.day + " , " + item.time}
+                ))}
+              </select>
+            </div>
+            <div className="newOutpatientItem">
+              <label>Date</label>
+              <DatePicker
+                selected={getDate(field.date)}
+                onChange={handleChangeDate}
+                value={field.date}
+                dateFormat="dd/MM/yyyy"
+                filterDate={(date) =>
+                  date.getDay() !== 6 && date.getDay() !== 0
+                }
+                isClearable
+                showYearDropdown
+                scrollableMonthYearDropdown
+                name="date"
+                className="form-control"
+              ></DatePicker>
+            </div>
+            <div className="newOutpatientItem">
+              <label> Select Doctor</label>
+              <select
+                className="form-control"
+                onChange={handleOnchangeDoctor}
+                name="doctorid"
+                id="doctorid"
+                value={field.doctorid}
+              >
+                <option value="0" disabled selected>
+                  Pilih Dokter
+                </option>
+                {doctor.length !== 0 &&
+                  doctor.map((item) => (
+                    <option value={item.id}>
+                      {item.nip + " - " + item.name}
                     </option>
                   ))}
+              </select>
+            </div>
+            <div className="newOutpatientItem">
+              <label>Rooms</label>
+              <input
+                type="text"
+                className="form-control"
+                value={autofill.room}
+                disabled
+                placeholder="Enter Rooms"
+              />
+            </div>
+            <div className="newOutpatientItem">
+              <label>Symptoms</label>
+              <textarea
+                type="text"
+                className="form-control"
+                name="symptoms"
+                value={field.symptoms}
+                onChange={handleOnChange}
+                placeholder="Enter Detail Symptoms"
+              />
+            </div>
+            <div className="newOutpatientItem">
+              <label>Diagnosis</label>
+              <textarea
+                type="text"
+                value={field.title}
+                name="title"
+                onChange={handleOnChange}
+                className="form-control"
+                placeholder="Enter Diagnosis"
+              />
+            </div>
+            <div className="newOutpatientItem">
+              <label>Medicine Recipe</label>
+              <textarea
+                type="text"
+                name="detailrecipe"
+                value={field.detailrecipe}
+                onChange={handleOnChange}
+                className="form-control"
+                placeholder="Enter Recipe"
+              />
+            </div>
+            <div className="newOutpatientItem">
+              <label>Status</label>
+              <div className="newDoctorStatus">
+                <select
+                  className="form-control"
+                  value={field.status}
+                  name="status"
+                  onChange={handleOnChange}
+                >
+                  <option selected disabled value={""}>
+                    Pilih Status
+                  </option>
+                  <option value="waiting">Waiting</option>
+                  <option value="onprogress">On Progress</option>
+                  <option value="done">Done</option>
                 </select>
               </div>
-              <div className="newOutpatientItem">
-                <label>Date</label>
-                <DatePicker
-                  selected={new Date()}
-                  onChange={handleChangeDate}
-                  // value={field.date}
-                  dateFormat="dd/MM/yyyy"
-                  filterDate={(date) =>
-                    date.getDay() !== 6 && date.getDay() !== 0
-                  }
-                  isClearable
-                  showYearDropdown
-                  scrollableMonthYearDropdown
-                  name="date"
-                  className="form-control"
-                ></DatePicker>
-              </div>
-              <div className="newOutpatientItem">
-                <label> NIP</label>
-                <input
-                  type="text"
-                  value={keySearch.nip}
-                  onChange={handleOnchangeNip}
-                  className="form-control"
-                  placeholder="Enter NIP"
-                />
-              </div>
-              <div className="newOutpatientItem">
-                <label>Doctor</label>
-                <input
-                  type="text"
-                  value={autofill.doctor}
-                  disabled
-                  className="form-control"
-                  placeholder="Enter Doctor Name"
-                />
-              </div>
-              <div className="newOutpatientItem">
-                <label>Rooms</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={autofill.room}
-                  disabled
-                  placeholder="Enter Rooms"
-                />
-              </div>
             </div>
+            <button className="newDoctorButton" disabled={isLoading}>
+              {isLoading ? <img src={Loading} alt="" width="40px" /> : "Save"}
+            </button>
           </form>
         </div>
       </div>
