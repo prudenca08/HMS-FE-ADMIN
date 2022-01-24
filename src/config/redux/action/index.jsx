@@ -237,13 +237,16 @@ export const actionGetAllOutpatients = () => (dispatch) => {
       .then((result) => {
         let data = [...result.data.data];
         data.forEach((item) => {
+          item.patient = item.patient;
           item.patientName = item.patient.name;
+          item.patsche = item.patsche;
           item.nik = item.patient.nik;
           item.day = item.patsche.day;
           item.time = item.patsche.time;
           item.nip = item.doctor.nip;
           item.room = item.doctor.room;
-          item.doctor = item.doctor.name;
+          item.doctor_name = item.doctor.name;
+          item.doctor = item.doctor;
         });
         console.log(data);
         dispatch({ type: "CHANGE_OUTPATIENT", value: data });
@@ -275,25 +278,24 @@ export const actionCreateOutpatient = (data) => (dispatch) => {
       .then((result) => {
         console.log(data);
         let _data = result.data.data;
-        _data.patient = data.patient;     
+        _data.patient = data.patient;
         _data.nik = data.patient.nik;
         _data.doctor = data.doctor;
-        _data.doctor = data.doctor.name;
+        _data.doctor_name = data.doctor.name;
         _data.nip = data.doctor.nip;
         _data.room = data.doctor.room;
         _data.patientName = data.patient.name;
-        _data.patsche = data.schedule; 
+        _data.patsche = data.schedule;
         _data.day = data.schedule.day;
         _data.time = data.schedule.time;
-       
-       console.log(_data);
+
+        console.log(_data);
         dispatch({ type: "ADD_OUTPATIENT", value: _data });
         resolve(result.status);
       })
       .catch((err) => {
         console.log(err);
         reject(err.response);
-        
       });
   });
 };
@@ -339,17 +341,17 @@ export const actionUpdateOutpatient = (data) => (dispatch) => {
       .then((result) => {
         console.log(data);
         let _data = result.data.data;
-        _data.patient = data.patient;     
+        _data.patient = data.patient;
         _data.nik = data.patient.nik;
         _data.doctor = data.doctor;
         _data.doctor = data.doctor.name;
         _data.nip = data.doctor.nip;
         _data.room = data.doctor.room;
         _data.patientName = data.patient.name;
-        _data.patsche = data.schedule; 
+        _data.patsche = data.schedule;
         _data.day = data.schedule.day;
         _data.time = data.schedule.time;
-       
+
         dispatch({ type: "UPDATE_OUTPATIENT", value: _data });
         resolve(result.status);
       })
@@ -546,4 +548,3 @@ export const actionDeletePatSchedule = (data) => (dispatch) => {
       });
   });
 };
-

@@ -35,7 +35,7 @@ const ManageOutpatient = (props) => {
     { field: "date", headerName: "Date", width: 100 },
     { field: "time", headerName: "Time", width: 120 },
     { field: "nip", headerName: "NIP", width: 120 },
-    { field: "doctor", headerName: "Doctor", width: 170 },
+    { field: "doctor_name", headerName: "Doctor", width: 170 },
     { field: "room", headerName: "Room", width: 100 },
     { field: "symptoms", headerName: "Symptoms", width: 150 },
     { field: "title", headerName: "Diagnosis", width: 150 },

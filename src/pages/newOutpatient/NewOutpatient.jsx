@@ -46,28 +46,23 @@ const NewOutpatient = (props) => {
   const handleOnchangeNik = (event) => {
     let { name, value } = event.currentTarget;
     setKeySearch({ ...keySearch, ["nik"]: value });
-    console.log(patient);
     let found = patient.find((i) => {
       return i.nik === value;
     });
-    console.log(found);
     if (found) {
       setAutofill({ ...autofill, patientName: found.name });
       setField({ ...field, patientid: found.id });
     }
   };
 
-  const handleOnchangeNip = (event) => {
+  const handleOnchangeDoctor = (event) => {
     let { name, value } = event.currentTarget;
-    setKeySearch({ ...keySearch, ["nip"]: value });
-    console.log(doctor);
     let found = doctor.find((i) => {
-      return i.nip === value;
+      return i.id === Number(value);
     });
-    console.log(found);
     if (found) {
-      setAutofill({ ...autofill, doctor: found.name, room: found.room });
-      setField({ ...field, doctorid: found.id });
+      setAutofill({ ...autofill, room: found.room });
+      setField({ ...field, doctorid: Number(value) });
     }
   };
 
@@ -189,24 +184,22 @@ const NewOutpatient = (props) => {
           ></DatePicker>
         </div>
         <div className="newOutpatientItem">
-          <label> NIP</label>
-          <input
-            type="text"
-            value={keySearch.nip}
-            onChange={handleOnchangeNip}
+          <label> Select Doctor</label>
+          <select
             className="form-control"
-            placeholder="Enter NIP"
-          />
-        </div>
-        <div className="newOutpatientItem">
-          <label>Doctor</label>
-          <input
-            type="text"
-            value={autofill.doctor}
-            disabled
-            className="form-control"
-            placeholder="Enter Doctor Name"
-          />
+            onChange={handleOnchangeDoctor}
+            name="doctorid"
+            id="doctorid"
+            value={field.doctorid}
+          >
+            <option value="0" disabled selected>
+              Pilih Dokter
+            </option>
+            {doctor.length !== 0 &&
+              doctor.map((item) => (
+                <option value={item.id}>{item.nip + " - " + item.name}</option>
+              ))}
+          </select>
         </div>
         <div className="newOutpatientItem">
           <label>Rooms</label>
