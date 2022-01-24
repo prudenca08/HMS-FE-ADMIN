@@ -344,7 +344,7 @@ export const actionUpdateOutpatient = (data) => (dispatch) => {
         _data.patient = data.patient;
         _data.nik = data.patient.nik;
         _data.doctor = data.doctor;
-        _data.doctor = data.doctor.name;
+        _data.doctor_name = data.doctor.name;
         _data.nip = data.doctor.nip;
         _data.room = data.doctor.room;
         _data.patientName = data.patient.name;

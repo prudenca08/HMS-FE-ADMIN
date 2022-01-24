@@ -62,9 +62,10 @@ function App() {
               <PrivateRoute path="/manage/outpatient">
                 <ManageOutpatient />
               </PrivateRoute>
-              <PrivateRoute path="/outpatient/:outpatientId">
-                <Outpatient />
-              </PrivateRoute>
+              <PrivateRoute
+                path="/outpatient/:outpatientId"
+                Component={Outpatient}
+              ></PrivateRoute>
               <PrivateRoute path="/newOutpatient">
                 <NewOutpatient />
               </PrivateRoute>
