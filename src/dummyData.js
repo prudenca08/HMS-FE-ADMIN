@@ -104,82 +104,80 @@ export const doctorRows = [
 
 export const drscheduleRows = [
   {
-    id : 1,
-    day : "Monday",
-    time :"9.00 - 11.50"
+    id: 1,
+    day: "Monday",
+    time: "9.00 - 11.50",
   },
   {
-    id : 2,
-    day : "Monday",
-    time : "13.00 - 15.00"
+    id: 2,
+    day: "Monday",
+    time: "13.00 - 15.00",
   },
   {
-    id : 3,
-    day : "Tuesday",
-    time : "9.00 - 15.00"
+    id: 3,
+    day: "Tuesday",
+    time: "9.00 - 15.00",
   },
-
 ];
-export const patientscheduleRows=[
+export const patientscheduleRows = [
   {
-    id : 1,
-    day : "Monday",
-    time :"9.00 - 9.50"
+    id: 1,
+    day: "Monday",
+    time: "9.00 - 9.50",
   },
   {
-    id : 2,
-    day : "Monday",
-    time : "13.00 - 13.50"
+    id: 2,
+    day: "Monday",
+    time: "13.00 - 13.50",
   },
   {
-    id : 3,
-    day : "Tuesday",
-    time : "10.00 - 10.50"
+    id: 3,
+    day: "Tuesday",
+    time: "10.00 - 10.50",
   },
   {
-    id : 4,
-    day : "Tuesday",
-    time : "11.00 - 11.50"
+    id: 4,
+    day: "Tuesday",
+    time: "11.00 - 11.50",
   },
   {
-    id : 5,
-    day : " Wednesday",
-    time : "10.00 - 10.50"
+    id: 5,
+    day: " Wednesday",
+    time: "10.00 - 10.50",
   },
 ];
 export const outpatientRows = [
   {
-    id : 1,
-    patientName : "Margareth Ellie",
-    day : "Monday",
-    date : "29/12/2021",
-    time : "10.00 - 10.50",
-    doctor : "dr.Thomas Harianja",
-    symptoms : "Gatal-gatal, sesak nafas, demam, batuk, pilek...",
-    room : "A27",
-    status: "On Progress"
+    id: 1,
+    patientName: "Margareth Ellie",
+    day: "Monday",
+    date: "29/12/2021",
+    time: "10.00 - 10.50",
+    doctor: "dr.Thomas Harianja",
+    symptoms: "Gatal-gatal, sesak nafas, demam, batuk, pilek...",
+    room: "A27",
+    status: "On Progress",
   },
   {
-    id : 2,
-    patientName : "Hayati Sulivan",
-    day : "Monday",
-    date : "29/12/2021",
-    time : "10.00 - 10.50",
-    doctor : "dr.Thomas Harianja",
-    symptoms : "Gatal-gatal, sesak nafas, demam, batuk, pilek...",
-    room : "A27",
-    status: "On Progress"
+    id: 2,
+    patientName: "Hayati Sulivan",
+    day: "Monday",
+    date: "29/12/2021",
+    time: "10.00 - 10.50",
+    doctor: "dr.Thomas Harianja",
+    symptoms: "Gatal-gatal, sesak nafas, demam, batuk, pilek...",
+    room: "A27",
+    status: "On Progress",
   },
   {
-    id : 3,
-    patientName : "Michael Jordan",
-    day : "Monday",
-    date : "29/12/2021",
-    time : "9.00 - 9.30",
-    doctor : "dr.Thomas Harianja",
-    symptoms : "Gatal-gatal, sesak nafas, demam, batuk, pilek...",
-    room : "A27",
-    status: "Done"
-  }
-]
-
+    id: 3,
+    patientName: "Michael Jordan",
+    day: "Monday",
+    date: "29/12/2021",
+    time: "9.00 - 9.30",
+    doctor: "dr.Thomas Harianja",
+    symptoms: "Gatal-gatal, sesak nafas, demam, batuk, pilek...",
+    room: "A27",
+    status: "Done",
+  },
+];
