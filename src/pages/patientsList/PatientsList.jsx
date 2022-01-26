@@ -1,33 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./patientsList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import { patientRows } from "../../dummyData";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  actionDeletePatients,
+  actionGetAllPatients,
+} from "../../config/redux/action";
 
-export default function PatientsList() {
+const PatientsList = (props) => {
   const [data, setData] = useState(patientRows);
-  
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    props.deletePatient({ id: id }).then(() => {});
   };
 
+  useEffect(() => {
+    if (props.patient.length <= 0) {
+      props.AllPatients().then(() => {
+        console.log(props.patient);
+      });
+    } else {
+      setData(props.patient);
+    }
+  }, [props]);
+
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "patient_name", headerName: "Name", width: 130 },
-    { field: "nik", headerName: "NIK", width: 130 },
+    { field: "name", headerName: "Full Name", width: 180 },
+    { field: "nik", headerName: "NIK", width: 150 },
     {
       field: "dob",
       headerName: "Date of Birth",
       type: "date",
-      width: 120,
+      width: 100,
     },
     {
       field: "gender",
       headerName: "Gender",
-      width: 90,
+      width: 100,
     },
     {
       field: "phone",
@@ -38,53 +51,63 @@ export default function PatientsList() {
     {
       field: "address",
       headerName: "Address",
-      width: 130,
+      width: 220,
     },
 
-    {
-      field: "symptoms",
-      headerName: "Symptoms",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-    },
     {
       field: "action",
       headerName: "Action",
       width: 150,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={"/patient/" + params.row.id}>
-              <EditIcon className="patientsEdit" />
+          <div className="d-flex gap-3 align-items-center">
+            <Link
+              className="text-primary"
+              to={"/patient/" + params.row.id}
+              role="button"
+            >
+              <EditIcon />
             </Link>
             <DeleteOutlineIcon
-              className="patientsDelete"
+              role="button"
+              className="text-danger"
               onClick={() => handleDelete(params.row.id)}
             />
-          </>
+          </div>
         );
       },
     },
   ];
   return (
-    <div className="patientsList">
-      <div className="patientListTitleContainer">
-        <h3 className="ListTitle">Patients</h3>
-      </div>
-      <div className="patientAdd">
-        <Link to="/newPatient">
-          <button className="patientAddButton">+Add New</button>
+    <div className="patientsList p-3">
+      <h1>Patients</h1>
+      <div className="d-flex my-3">
+        <Link to="/newPatient" className="ms-auto">
+          <button className="btn-add-custom">+Add New</button>
         </Link>
       </div>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
+      <div className="grid-holder">
+        {props.patient.length !== 0 && (
+          <DataGrid
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[25]}
+            checkboxSelection
+            autoHeight={true}
+            // disableSelectionOnClick
+          />
+        )}
+      </div>
     </div>
   );
-}
+};
+const reduxState = (state) => ({
+  patient: state.patient,
+});
+const reduxDispatch = (dispatch) => ({
+  AllPatients: (data) => dispatch(actionGetAllPatients(data)),
+  deletePatient: (data) => dispatch(actionDeletePatients(data)),
+});
+
+export default connect(reduxState, reduxDispatch)(PatientsList);

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarTop from "./components/NavbarTop/NavbarTop";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Dashboard from "./pages/dashboard";
 import PatientsList from "./pages/patientsList/PatientsList";
 import Patient from "./pages/patient/Patient";
 import NewPatient from "./pages/newPatient/NewPatient";
@@ -16,6 +16,9 @@ import ManageOutpatient from "./pages/manageOutpatient/ManageOutpatient";
 import NewOutpatient from "./pages/newOutpatient/NewOutpatient";
 import Outpatient from "./pages/outpatient/Outpatient";
 import FormLogin from "./pages/login/Form";
+import PrivateRoute from "./components/PrivateRoute";
+import Faq from "./pages/faq/Faq";
+import UpdatePassword from "./pages/updatePassword/UpdatePassword";
 
 function App() {
   return (
@@ -25,50 +28,53 @@ function App() {
           <FormLogin />
         </Route>
         <>
-          <NavbarTop />
           <div className="containers">
-            <Sidebar
-              onCollapse={(inactive) => {
-                console.log(inactive);
-              }}
-            />
+            <NavbarTop />
+            <Sidebar onCollapse={(inactive) => {}} />
             <Switch>
-              <Route exact path="/">
+              <PrivateRoute exact path="/">
                 <Dashboard />
-              </Route>
-              <Route path="/patients">
+              </PrivateRoute>
+              <PrivateRoute path="/patients">
                 <PatientsList />
-              </Route>
-              <Route path="/patient/:patientId">
+              </PrivateRoute>
+              <PrivateRoute path="/patient/:patientId">
                 <Patient />
-              </Route>
-              <Route path="/newPatient">
+              </PrivateRoute>
+              <PrivateRoute path="/newPatient">
                 <NewPatient />
-              </Route>
-              <Route path="/doctors">
+              </PrivateRoute>
+              <PrivateRoute path="/doctors">
                 <DoctorsList />
-              </Route>
-              <Route path="/doctor/:doctorId">
+              </PrivateRoute>
+              <PrivateRoute path="/doctor/:doctorId">
                 <Doctor />
-              </Route>
-              <Route path="/newDoctor">
+              </PrivateRoute>
+              <PrivateRoute path="/newDoctor">
                 <NewDoctor />
-              </Route>
-              <Route path="/manage/drschedule">
+              </PrivateRoute>
+              <PrivateRoute path="/manage/drschedule">
                 <ManageDrSchedule />
-              </Route>
-              <Route path="/manage/patientschedule">
+              </PrivateRoute>
+              <PrivateRoute path="/manage/patientschedule">
                 <ManagePatientSchedule />
-              </Route>
-              <Route path="/manage/outpatient">
+              </PrivateRoute>
+              <PrivateRoute path="/manage/outpatient">
                 <ManageOutpatient />
-              </Route>
-              <Route path="/outpatient/:outpatientId">
-                <Outpatient />
-              </Route>
-              <Route path="/newOutpatient">
+              </PrivateRoute>
+              <PrivateRoute
+                path="/outpatient/:outpatientId"
+                Component={Outpatient}
+              ></PrivateRoute>
+              <PrivateRoute path="/newOutpatient">
                 <NewOutpatient />
-              </Route>
+              </PrivateRoute>
+              <PrivateRoute path="/faq">
+                <Faq />
+              </PrivateRoute>
+              <PrivateRoute path="/updatePassword">
+                <UpdatePassword />
+              </PrivateRoute>
             </Switch>
           </div>
         </>

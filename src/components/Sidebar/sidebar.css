@@ -1,5 +1,4 @@
 .sidebar {
-  position: fixed;
   background-color: #181f31;
   width: 250px;
   height: calc(100vh - 60px);
@@ -74,6 +73,7 @@ a{
 .sidebarIcon{
     margin-right: 5px;
     font-size: 30px !important;
+    width: 30px;
 }
 
 .subList{

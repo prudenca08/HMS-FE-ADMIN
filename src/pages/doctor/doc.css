@@ -80,7 +80,7 @@
   border-bottom: 1px solid gray;
 }
 .doctorUpdateButton {
-  margin-top: 50px;
+  margin-top: 30px;
   border-radius: 5px;
   border: none;
   width: 250px;
@@ -89,4 +89,15 @@
   background-color: #8282f3;
   color: white;
   font-weight: 400;
+}
+.passwordChangeButton{
+  border-radius: 5px;
+  border: none;
+  width: 250px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: #1e9df1;
+  color: white;
+  font-weight: 400;
+  float: right;
 }

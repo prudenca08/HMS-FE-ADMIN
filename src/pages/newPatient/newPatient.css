@@ -4,7 +4,7 @@
 }
 .newPatientForm{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
 
 }
 .newPatientItem{
@@ -13,6 +13,11 @@
     flex-direction: column;
     margin-top: 10px;
     margin-right: 20px;
+}
+.newPatientTitle{
+    margin-top: 25px;
+    margin-bottom: 40px;
+    font-size: 35px;
 }
 .newPatientItem > label{
     margin-bottom: 10px;

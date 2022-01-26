@@ -12,7 +12,6 @@ const FormLogin = () => {
   return (
     <>
       <div className='form-container'>
-        <span className='close-btn'>×</span>
         <div className='form-content-left'>
           <img className='form-logo' src='assets/img/logo/logo.png' alt='' />
           <img className='form-img' src='assets/img/icon/login.svg' alt='' />
