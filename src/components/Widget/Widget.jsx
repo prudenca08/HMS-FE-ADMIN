@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./widget.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { outpatientRows } from "../../dummyData";
-import { Link } from "react-router-dom";
 import { actionGetAllOutpatients } from "../../config/redux/action";
 import { connect } from "react-redux";
 
@@ -20,12 +19,10 @@ const Widget = (props) => {
   }, [props]);
 
   const columns = [
-    { field: "nik", headerName: "NIK", width: 120 },
     { field: "patientName", headerName: "Patient Name", width: 180 },
     { field: "day", headerName: "Day", width: 100 },
     { field: "date", headerName: "Date", width: 100 },
     { field: "time", headerName: "Time", width: 120 },
-    { field: "nip", headerName: "NIP", width: 120 },
     { field: "doctor_name", headerName: "Doctor", width: 170 },
     { field: "room", headerName: "Room", width: 100 },
     { field: "symptoms", headerName: "Symptoms", width: 150 },
@@ -42,7 +39,7 @@ const Widget = (props) => {
           <DataGrid
             rows={data}
             columns={columns}
-            pageSize={10}
+            pageSize={5}
             rowsPerPageOptions={[25]}
             checkboxSelection
             autoHeight={true}
