@@ -256,13 +256,6 @@ const Doctor = (props) => {
               </button>
             </div>
           </form>
-          <button
-            className="passwordChangeButton"
-            onClick={handleOnClickRedirect}
-            to="/updatePassword"
-          >
-            Change Password
-          </button>
         </div>
       </div>
     </div>

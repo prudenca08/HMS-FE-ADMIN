@@ -18,7 +18,7 @@ import Outpatient from "./pages/outpatient/Outpatient";
 import FormLogin from "./pages/login/Form";
 import PrivateRoute from "./components/PrivateRoute";
 import Faq from "./pages/faq/Faq";
-import UpdatePassword from "./pages/updatePassword/UpdatePassword";
+
 
 function App() {
   return (
@@ -71,9 +71,6 @@ function App() {
               </PrivateRoute>
               <PrivateRoute path="/faq">
                 <Faq />
-              </PrivateRoute>
-              <PrivateRoute path="/updatePassword">
-                <UpdatePassword />
               </PrivateRoute>
             </Switch>
           </div>
